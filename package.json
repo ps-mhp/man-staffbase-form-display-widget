@@ -1,0 +1,11 @@
+{
+  "name": "@man/form-display-widget",
+  "version": "0.0.0",
+  "description": "",
+  "author": "",
+  "license": "ISC",
+  "staffbase": {
+    "element": "form-display-widget",
+    "bundle": "dist/form-display-widget.js"
+  }
+}
