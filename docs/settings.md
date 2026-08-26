@@ -1,12 +1,14 @@
 # Einstellungen
 
-TODO: Liste jede Einstellung im Konfigurationsdialog auf, mit dem exakten
-Namen aus dem Dialog, was sie bewirkt, welcher Wert voreingestellt ist und —
-falls relevant — welche Werte erlaubt sind.
-
 | Einstellung | Beschreibung |
 | --- | --- |
-| _(Name)_ | _(Beschreibung)_ |
+| Formular | Das anzuzeigende Formular. Pflichtfeld. Normalerweise über die Auswahlliste; alternativ die vollständige Formular-Adresse einfügen oder die 24-stellige Zeichenfolge an deren Ende. |
+| Akzentfarbe | Farbe für Absenden-Button, Pflichtfeld-Marker und Auswahl-Häkchen. Voreingestellt MAN Rot; alternativ Anthrazit oder Schwarz. |
+| Dichte | Standard (42 px Feldhöhe) oder Kompakt (36 px) — für Seiten mit wenig Platz. |
+| Pflichtfeld-Markierung | Sternchen (`*`) oder ausgeschriebenes `(required)` hinter dem Label. |
 
-TODO: Falls Einstellungen voneinander abhängen (z. B. Feld wirkt nur in einem
-bestimmten Modus), das hier ausdrücklich sagen.
+## Zur Auswahlliste
+
+Die Liste zeigt nur Formulare, für die Sie **Verwaltungsrechte** haben. Ein
+fremdes Formular, das Sie einbetten dürfen, taucht dort also nicht auf; es
+lässt sich trotzdem über das Einfügen der Adresse eintragen.

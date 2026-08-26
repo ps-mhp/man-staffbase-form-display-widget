@@ -1,7 +1,7 @@
 {
-  "title": "form-display-widget",
-  "summary": "TODO: Ein Satz, was dieses Widget für Redakteure tut.",
-  "icon": "🧩",
+  "title": "Formular-Anzeige",
+  "summary": "Zeigt ein bestehendes Staffbase-Formular im MAN CI direkt auf einer beliebigen Seite an.",
+  "icon": "📝",
   "pages": [
     { "id": "overview", "title": "Übersicht", "file": "overview.md" },
     { "id": "usage", "title": "Schritt für Schritt", "file": "usage.md" },

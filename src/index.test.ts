@@ -1,0 +1,87 @@
+/*!
+ * Copyright 2026, MHP Management und IT-Beratung GmbH and contributors.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import {
+  ACCENT_COLOR_ATTRIBUTE,
+  DENSITY_ATTRIBUTE,
+  FORM_ID_ATTRIBUTE,
+  REQUIRED_MARKER_ATTRIBUTE,
+  readAccentColor,
+  readCompact,
+  readRequiredMarker,
+  stopFormPickerInjector,
+  stopPluginBlockGuard,
+} from "./index";
+import { configurationSchema, uiSchema } from "./configuration-schema";
+
+describe("the widget's attributes", () => {
+  it("are exactly the keys the configuration schema stores under", () => {
+    // The host saves a value under its schema key verbatim and reads it back
+    // under the declared attribute. Any difference puts the value where
+    // nothing looks.
+    expect(Object.keys(configurationSchema.properties!)).toEqual([
+      FORM_ID_ATTRIBUTE,
+      ACCENT_COLOR_ATTRIBUTE,
+      DENSITY_ATTRIBUTE,
+      REQUIRED_MARKER_ATTRIBUTE,
+    ]);
+  });
+
+  it("are the keys the dialog's ui hints are filed under", () => {
+    expect(Object.keys(uiSchema)).toEqual([
+      FORM_ID_ATTRIBUTE,
+      ACCENT_COLOR_ATTRIBUTE,
+      DENSITY_ATTRIBUTE,
+      REQUIRED_MARKER_ATTRIBUTE,
+    ]);
+  });
+});
+
+describe("reading the appearance configuration", () => {
+  it("takes each offered accent and falls back to MAN red for anything else", () => {
+    expect(readAccentColor("#303c49")).toBe("#303c49");
+    expect(readAccentColor("#12171c")).toBe("#12171c");
+    expect(readAccentColor("#00a4fd")).toBe("#e40045");
+    expect(readAccentColor(undefined)).toBe("#e40045");
+  });
+
+  it("treats only the explicit compact density as compact", () => {
+    expect(readCompact("compact")).toBe(true);
+    expect(readCompact("standard")).toBe(false);
+    expect(readCompact(undefined)).toBe(false);
+  });
+
+  it("spells the required marker as configured", () => {
+    expect(readRequiredMarker("text")).toBe(" (required)");
+    expect(readRequiredMarker("asterisk")).toBe(" *");
+    expect(readRequiredMarker(undefined)).toBe(" *");
+  });
+});
+
+describe("the picker injector", () => {
+  it("is started at module load and can be stopped again", () => {
+    // The dialog may open before or after the bundle loads, so the injector
+    // has to be watching from the start rather than triggered by a render.
+    expect(typeof stopFormPickerInjector).toBe("function");
+    stopFormPickerInjector();
+  });
+});
+
+describe("the plugin-block guard", () => {
+  it("is started at module load and can be stopped again", () => {
+    // Same reasoning as the picker: the host's plugin-block dialog may
+    // already be open when this bundle arrives.
+    expect(typeof stopPluginBlockGuard).toBe("function");
+    stopPluginBlockGuard();
+  });
+});
