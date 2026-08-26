@@ -1,0 +1,27 @@
+{
+  "title": "Weergave van het formulier",
+  "summary": "Geeft een bestaand Staffbase-formulier direct weer op een willekeurige pagina in de MAN CI.",
+  "icon": "📝",
+  "pages": [
+    {
+      "id": "overview",
+      "title": "Overzicht",
+      "file": "overview.md"
+    },
+    {
+      "id": "usage",
+      "title": "Stap voor stap",
+      "file": "usage.md"
+    },
+    {
+      "id": "settings",
+      "title": "Instellingen",
+      "file": "settings.md"
+    },
+    {
+      "id": "faq",
+      "title": "Veelgestelde vragen",
+      "file": "faq.md"
+    }
+  ]
+}

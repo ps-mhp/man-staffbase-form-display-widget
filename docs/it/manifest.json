@@ -1,0 +1,27 @@
+{
+  "title": "Visualizzazione del modulo",
+  "summary": "Visualizza un modulo Staffbase esistente nell'interfaccia MAN CI direttamente su una pagina qualsiasi.",
+  "icon": "📝",
+  "pages": [
+    {
+      "id": "overview",
+      "title": "Panoramica",
+      "file": "overview.md"
+    },
+    {
+      "id": "usage",
+      "title": "Passo dopo passo",
+      "file": "usage.md"
+    },
+    {
+      "id": "settings",
+      "title": "Impostazioni",
+      "file": "settings.md"
+    },
+    {
+      "id": "faq",
+      "title": "Domande frequenti",
+      "file": "faq.md"
+    }
+  ]
+}

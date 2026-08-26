@@ -1,0 +1,27 @@
+{
+  "title": "Form Display",
+  "summary": "Displays an existing Staffbase form directly on any page within the MAN CI.",
+  "icon": "📝",
+  "pages": [
+    {
+      "id": "overview",
+      "title": "Overview",
+      "file": "overview.md"
+    },
+    {
+      "id": "usage",
+      "title": "Step by step",
+      "file": "usage.md"
+    },
+    {
+      "id": "settings",
+      "title": "Settings",
+      "file": "settings.md"
+    },
+    {
+      "id": "faq",
+      "title": "FAQ",
+      "file": "faq.md"
+    }
+  ]
+}

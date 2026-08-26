@@ -1,0 +1,27 @@
+{
+  "title": "Affichage du formulaire",
+  "summary": "Affiche un formulaire Staffbase existant directement dans l'interface client MAN, sur la page de votre choix.",
+  "icon": "📝",
+  "pages": [
+    {
+      "id": "overview",
+      "title": "Aperçu",
+      "file": "overview.md"
+    },
+    {
+      "id": "usage",
+      "title": "Étape par étape",
+      "file": "usage.md"
+    },
+    {
+      "id": "settings",
+      "title": "Paramètres",
+      "file": "settings.md"
+    },
+    {
+      "id": "faq",
+      "title": "FAQ",
+      "file": "faq.md"
+    }
+  ]
+}
