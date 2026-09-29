@@ -302,6 +302,9 @@ function OwnAnswersModal({ answers, onClose }: OwnAnswersModalProps): React.JSX.
   };
 
   React.useEffect(() => {
+    // Portaled to `document.body`, so it needs the stylesheet in the document
+    // too — the block's own copy may sit in a shadow root it cannot see.
+    ensureStyles();
     dialog.current?.focus();
     const onKeyDown = (event: KeyboardEvent): void => {
       if (event.key === "Escape") onClose();
@@ -401,7 +404,12 @@ export function FormView({ formId, accent, compact, requiredMarker }: FormViewPr
   // previous form must not write its outcome over the new one.
   const activeFormId = React.useRef(formId);
 
-  React.useEffect(() => ensureStyles(), []);
+  // A ref, not an effect on the document: the stylesheet has to land in the
+  // root this element was rendered into, which is a shadow root in the
+  // Content Designer (see `@shared/style-root`).
+  const anchorStyles = React.useCallback((element: HTMLElement | null) => {
+    if (element !== null) ensureStyles(element);
+  }, []);
 
   /** Fills the previous-submissions panel; a failure just leaves it empty. */
   const loadOwnAnswers = (id: string): void => {
@@ -617,7 +625,7 @@ export function FormView({ formId, accent, compact, requiredMarker }: FormViewPr
   };
 
   return (
-    <div className="form-display" data-testid="form-display" style={style}>
+    <div ref={anchorStyles} className="form-display" data-testid="form-display" style={style}>
       <div className="form-display__form">
         {/* Persistent live region: the loading → ready swap has no alert of
             its own, so screen readers would otherwise not hear it finish. */}

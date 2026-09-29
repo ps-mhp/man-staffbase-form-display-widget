@@ -11,6 +11,8 @@
  * limitations under the License.
  */
 
+import { ensureStyleElement } from "@shared/style-root";
+
 /** Id of the single style element, which is also how it is recognised again. */
 export const STYLE_ELEMENT_ID = "form-display-widget-styles";
 
@@ -514,15 +516,14 @@ export const FORM_DISPLAY_CSS = `
 `;
 
 /**
- * Puts the stylesheet into the document, once.
+ * Puts the stylesheet where `anchor` lives, once per root.
  *
  * Several forms may sit on one page, and every block would otherwise add its
  * own copy. The id is both the marker and the way back to it.
+ *
+ * Where that is differs by editor: `document.head` for a classic page, the
+ * page's shadow root in the Content Designer — see `@shared/style-root`.
  */
-export function ensureStyles(doc: Document = document): void {
-  if (doc.getElementById(STYLE_ELEMENT_ID) !== null) return;
-  const style = doc.createElement("style");
-  style.id = STYLE_ELEMENT_ID;
-  style.textContent = FORM_DISPLAY_CSS;
-  doc.head.appendChild(style);
+export function ensureStyles(anchor?: Node | null): void {
+  ensureStyleElement(anchor, STYLE_ELEMENT_ID, FORM_DISPLAY_CSS);
 }
