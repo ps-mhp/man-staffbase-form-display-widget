@@ -19,7 +19,7 @@ describe("readFormId", () => {
   });
 
   it("takes the id out of a pasted form URL", () => {
-    expect(readFormId("https://www.onetruck.man/content/page/forms/6a85bab79477a541319d2176")).toBe(
+    expect(readFormId("https://www.mti.man/content/page/forms/6a85bab79477a541319d2176")).toBe(
       "6a85bab79477a541319d2176",
     );
   });
