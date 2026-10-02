@@ -35,13 +35,14 @@ const SELECT_PLACEHOLDER = "Please select …";
 /**
  * Hover and active shades per configurable accent.
  *
- * Fixed pairs from the MAN colour ramps rather than a computed darkening, so
- * the states always land on CI colours: red 500→600→700, slate 600→700→800,
- * slate 900→black.
+ * Fixed pairs from Craft's button states rather than a computed darkening, so
+ * the states always land on CI colours: red as accent-primary
+ * (#e40045→#ad0040→#8a003b), anthracite as standard-primary
+ * (#303c49→#1e2832→#161616), black → black.
  */
 const ACCENT_SHADES: Record<string, { hover: string; active: string }> = {
-  "#e40045": { hover: "#c10039", active: "#9e002f" },
-  "#303c49": { hover: "#262f39", active: "#1c232a" },
+  "#e40045": { hover: "#ad0040", active: "#8a003b" },
+  "#303c49": { hover: "#1e2832", active: "#161616" },
   "#12171c": { hover: "#000000", active: "#000000" },
 };
 
@@ -49,7 +50,7 @@ export interface FormViewProps {
   formId: string | null;
   /** The accent for CTA, required marker and selection cores. */
   accent: string;
-  /** 36 px field height instead of 42 px. */
+  /** 36 px field height instead of Craft's 40 px. */
   compact: boolean;
   /** Appended to required labels, e.g. " *" or " (required)". */
   requiredMarker: string;
@@ -99,10 +100,10 @@ interface ChoiceGroupProps {
 }
 
 /**
- * Single and multiple choice, sharing the square 18 px box of the design:
- * a filled 10 px core for radio, a check mark for checkbox. The native input
- * stays in the DOM (visually hidden) so keyboard and screen reader behaviour
- * remain the browser's own.
+ * Single and multiple choice as Craft draws them, in a 20 px box: round with
+ * a 12 px dot for radio, square with a 16 px check for checkbox. The native
+ * input stays in the DOM (visually hidden) so keyboard and screen reader
+ * behaviour remain the browser's own.
  */
 function ChoiceGroup({ field, groupName, value, error, labelId, describedBy, onChange, inputRef }: ChoiceGroupProps): React.JSX.Element {
   const multiple = field.type === "checkbox";
@@ -140,7 +141,7 @@ function ChoiceGroup({ field, groupName, value, error, labelId, describedBy, onC
             <span className="form-display__choice-box" aria-hidden="true">
               {checked && !multiple && <span className="form-display__choice-core" />}
               {checked && multiple && (
-                <svg className="form-display__choice-check" width="12" height="12" viewBox="0 0 24 24" fill="none" strokeWidth="3">
+                <svg className="form-display__choice-check" width="16" height="16" viewBox="0 0 24 24" fill="none" strokeWidth="3">
                   <path d="M5 12.5l4.5 4.5L19 7" />
                 </svg>
               )}
@@ -370,7 +371,7 @@ function SuccessPanel({ message }: { message: string }): React.JSX.Element {
   return (
     <div className="form-display__success" role="status">
       <span className="form-display__success-icon">
-        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="#12171c" strokeWidth="3" aria-hidden="true">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" aria-hidden="true">
           <path d="M5 12.5l4.5 4.5L19 7" />
         </svg>
       </span>
@@ -486,7 +487,7 @@ export function FormView({ formId, accent, compact, requiredMarker }: FormViewPr
     "--fdw-accent": accent,
     "--fdw-accent-hover": shades.hover,
     "--fdw-accent-active": shades.active,
-    "--fdw-field-h": compact ? "36px" : "42px",
+    "--fdw-field-h": compact ? "36px" : "40px",
   } as React.CSSProperties;
 
   const setValue = (key: string, value: Value): void => {

@@ -4,7 +4,7 @@ La visualización de formularios permite insertar un formulario existente de Sta
 cualquier página. Los lectores pueden rellenarlo y enviarlo directamente desde allí,
 sin necesidad de desplazarse a la sección de formularios —por ejemplo, en la página de inicio, en una
 página de equipo o una página de campaña. Se muestra con el estilo MAN CI: campos
-cuadrados, el foco en antracita, el rojo solo para el botón de envío, indicadores de campos obligatorios
+cuadrados, el foco en azul, el rojo solo para el botón de envío, indicadores de campos obligatorios
 y mensajes de error.
 
 ## Qué hace el widget — y qué no hace

@@ -4,7 +4,7 @@
 | --- | --- |
 | Formularz | Formularz, który ma zostać wyświetlony. Pole obowiązkowe. Zazwyczaj wybiera się go z listy rozwijanej; alternatywnie można wpisać pełny adres formularza lub 24-znakowy ciąg znaków znajdujący się na jego końcu. |
 | Kolor akcentujący | Kolor przycisku „Wyślij”, znacznika pól obowiązkowych i zaznaczeń wyboru. Domyślnie MAN Czerwony; alternatywnie antracyt lub czarny. |
-| Gęstość | Standardowa (wysokość pola 42 px) lub kompaktowa (36 px) — dla stron o ograniczonej przestrzeni. |
+| Gęstość | Standardowa (wysokość pola 40 px) lub kompaktowa (36 px) — dla stron o ograniczonej przestrzeni. |
 | Oznaczenie pola obowiązkowego | Gwiazdka (`*`) lub pełna nazwa `(required)` po etykiecie. |
 
 ## Do listy wyboru

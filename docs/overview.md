@@ -4,7 +4,7 @@ Die Formular-Anzeige bringt ein bestehendes Staffbase-Formular auf eine
 beliebige Seite. Leser:innen können es direkt dort ausfüllen und absenden,
 ohne in den Formular-Bereich zu wechseln — etwa auf der Startseite, einer
 Team-Seite oder einer Aktionsseite. Dargestellt wird es im MAN CI: eckige
-Felder, Fokus in Anthrazit, Rot nur für Absenden-Button, Pflichtfeld-Marker
+Felder, Fokus in Blau, Rot nur für Absenden-Button, Pflichtfeld-Marker
 und Fehlermeldungen.
 
 ## Was das Widget tut — und was nicht

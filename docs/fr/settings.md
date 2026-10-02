@@ -4,7 +4,7 @@
 | --- | --- |
 | Formulaire | Le formulaire à afficher. Champ obligatoire. À sélectionner normalement dans la liste déroulante ; vous pouvez également saisir l'adresse complète du formulaire ou la chaîne de 24 caractères figurant à la fin de celle-ci. |
 | Couleur d'accentuation | Couleur du bouton « Envoyer », des marqueurs de champs obligatoires et des cases à cocher. Par défaut : MAN Rouge ; vous pouvez également choisir Anthracite ou Noir. |
-| Densité | Standard (hauteur de champ de 42 px) ou Compact (36 px) — pour les pages disposant de peu d'espace. |
+| Densité | Standard (hauteur de champ de 40 px) ou Compact (36 px) — pour les pages disposant de peu d'espace. |
 | Indicateur de champ obligatoire | Astérisque (`*`) ou mention complète `(required)` après le libellé. |
 
 ## À propos de la liste de sélection

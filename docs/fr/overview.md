@@ -4,7 +4,7 @@ L’affichage du formulaire permet d’intégrer un formulaire Staffbase existan
 page. Les lecteurs peuvent le remplir et l’envoyer directement depuis cette page,
 sans avoir à se rendre dans la section « Formulaires » — par exemple sur la page d’accueil, une
 page d’équipe ou une page d’action. Il s’affiche selon les normes MAN CI : champs carrés,
-surlignage en anthracite, rouge uniquement pour le bouton d’envoi, indicateurs de champs obligatoires
+surlignage en bleu, rouge uniquement pour le bouton d’envoi, indicateurs de champs obligatoires
 et messages d’erreur.
 
 ## Ce que fait le widget — et ce qu’il ne fait pas

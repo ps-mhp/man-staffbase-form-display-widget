@@ -4,7 +4,7 @@ The Form Display feature embeds an existing Staffbase form on any
 page. Readers can fill it out and submit it right there,
 without having to navigate to the Forms section—for example, on the homepage, a
 team page, or a campaign page. It’s displayed in the MAN CI: square
-fields, focus in anthracite, red only for the submit button, required field markers,
+fields, focus in blue, red only for the submit button, required field markers,
 and error messages.
 
 ## What the widget does—and what it doesn’t

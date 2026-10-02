@@ -4,7 +4,7 @@ Funkcja wyświetlania formularza pozwala umieścić istniejący formularz Staffb
 dowolnej stronie. Czytelnicy mogą go wypełnić i wysłać bezpośrednio z tej strony,
 bez konieczności przechodzenia do sekcji formularzy — na przykład na stronie głównej,
 stronie zespołu czy stronie akcji. Wyświetlany jest zgodnie z wytycznymi MAN CI: kwadratowe
-pola, podświetlenie w kolorze antracytowym, kolor czerwony tylko dla przycisku wysyłania, oznaczenia pól obowiązkowych
+pola, podświetlenie w kolorze niebieskim, kolor czerwony tylko dla przycisku wysyłania, oznaczenia pól obowiązkowych
 i komunikaty o błędach.
 
 ## Co robi ten widget — a czego nie robi

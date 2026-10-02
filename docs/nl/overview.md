@@ -4,7 +4,7 @@ Met de formulierweergave kun je een bestaand Staffbase-formulier op een
 willekeurige pagina plaatsen. Lezers kunnen het daar direct invullen en versturen,
 zonder naar het formuliergedeelte te hoeven gaan — bijvoorbeeld op de startpagina, een
 teampagina of een actiepagina. Het wordt weergegeven in de MAN CI: hoekige
-velden, focus in antraciet, rood alleen voor de verzendknop, markeringen voor verplichte velden
+velden, focus in blauw, rood alleen voor de verzendknop, markeringen voor verplichte velden
 en foutmeldingen.
 
 ## Wat de widget doet — en wat niet

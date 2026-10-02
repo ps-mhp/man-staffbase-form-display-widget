@@ -294,8 +294,23 @@ describe("FormView", () => {
 
     const block = screen.getByTestId("form-display");
     expect(block.style.getPropertyValue("--fdw-accent")).toBe("#303c49");
+    // Craft standard-primary: hover and pressed of the anthracite button.
+    expect(block.style.getPropertyValue("--fdw-accent-hover")).toBe("#1e2832");
+    expect(block.style.getPropertyValue("--fdw-accent-active")).toBe("#161616");
     expect(block.style.getPropertyValue("--fdw-field-h")).toBe("36px");
     expect(screen.getAllByText("(required)")).toHaveLength(2);
+  });
+
+  it("defaults to Craft's 40 px field and the accent-primary states of MAN red", async () => {
+    mockLoad();
+
+    render(<FormView formId={FORM_ID} {...defaults} />);
+    await screen.findByLabelText(/Your name/);
+
+    const block = screen.getByTestId("form-display");
+    expect(block.style.getPropertyValue("--fdw-field-h")).toBe("40px");
+    expect(block.style.getPropertyValue("--fdw-accent-hover")).toBe("#ad0040");
+    expect(block.style.getPropertyValue("--fdw-accent-active")).toBe("#8a003b");
   });
 
   it("resets typed answers and validation marks", async () => {

@@ -17,11 +17,19 @@ import { ensureStyleElement } from "@shared/style-root";
 export const STYLE_ELEMENT_ID = "form-display-widget-styles";
 
 /**
- * The widget's stylesheet, MAN CI as specified in the Form-Widget design:
- * radius 0 throughout, hairlines instead of shadows, focus in anthracite
- * `#303c49` (never Staffbase blue), red reserved for the primary CTA, the
- * required marker and the error state. Fonts are the page's own — the MAN
- * intranet ships MAN Europe and Roboto, the stacks here only name them.
+ * The widget's stylesheet, MAN CI after Craft, the MAN Design System
+ * (component images as in man-theme `src/lib/_craft.scss`, resolved values in
+ * man-theme `analysis/craft/components-forms.md`): radius 0 throughout,
+ * hairlines instead of shadows, focus as Craft's blue outline (2px `#3875b2`,
+ * 2px offset), red reserved for the primary CTA, the required marker and the
+ * selection. Errors are Craft's own red (`#cc0000` border, `#990000` text),
+ * not the brand red. No capitals and no tracking, as the new MAN CI wants.
+ *
+ * Plain CSS without Sass, so the `man(...)` helpers are written out: colours
+ * and fonts are `var(--man-…, <Craft value>)`, the same pairs as in
+ * `@shared/stylings/_man-tokens.scss`. Fonts are the page's own — man-theme
+ * ships Man Europe (400, 700) and Man Europe Condensed (700) and names them in
+ * `--man-font-body` / `--man-font-head`; without it the stacks fall to Arial.
  *
  * `--fdw-accent` (plus its hover/active shades) and `--fdw-field-h` are set
  * per block from the configuration, see `FormView`.
@@ -30,8 +38,8 @@ export const FORM_DISPLAY_CSS = `
 .form-display {
   box-sizing: border-box;
   display: block;
-  font-family: 'Roboto', Arial, sans-serif;
-  color: #12171c;
+  font-family: var(--man-font-body, "Man Europe", Arial, sans-serif);
+  color: var(--man-text, #303c49);
   min-width: 0;
 }
 
@@ -42,8 +50,8 @@ export const FORM_DISPLAY_CSS = `
 }
 
 .form-display__form {
-  background: #ffffff;
-  border: 1px solid #d6d8db;
+  background: var(--man-surface, #ffffff);
+  border: 1px solid var(--man-border, #cbd3dc);
 }
 
 .form-display__fields {
@@ -59,42 +67,56 @@ export const FORM_DISPLAY_CSS = `
   gap: 8px;
 }
 
+/* Craft field-label: Condensed 700 14px/1.3 in the text colour, mixed case. */
 .form-display__label {
-  font: 700 11px/1.4 'MAN Europe', Arial, sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #545b62;
+  font: 700 14px/1.3 var(--man-font-head, "Man Europe Condensed", Arial, sans-serif);
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--man-text, #303c49);
 }
 
 .form-display__required {
-  color: var(--fdw-accent, #e40045);
+  color: var(--fdw-accent, var(--man-red, #e40045));
 }
 
 .form-display__image {
   max-width: 100%;
   height: auto;
-  border: 1px solid #d6d8db;
+  border: 1px solid var(--man-border, #cbd3dc);
 }
 
+/*
+ * Craft input-text: 40px, padding 0 12px, border 1px #5b6f85, radius 0,
+ * Man Europe 400 16px. Hover #1e2832, invalid #cc0000 (hover #990000),
+ * disabled #e5e5e5 with border and text #afafaf. Focus adds the ring and
+ * leaves the border alone.
+ */
 .form-display__input,
 .form-display__textarea,
 .form-display__select {
   width: 100%;
-  border: 1px solid #d6d8db;
-  border-radius: 0;
-  background: #ffffff;
-  font: 400 15px/1 'Roboto', Arial, sans-serif;
-  color: #12171c;
+  border: 1px solid var(--man-border-input, #5b6f85);
+  border-radius: var(--man-radius, 0);
+  background: var(--man-surface, #ffffff);
+  font: 400 16px/1 var(--man-font-body, "Man Europe", Arial, sans-serif);
+  color: var(--man-text, #303c49);
+  box-shadow: none;
+}
+
+.form-display__input::placeholder,
+.form-display__textarea::placeholder {
+  color: var(--man-text-muted, #5b6f85);
+  opacity: 1;
 }
 
 .form-display__input {
-  height: var(--fdw-field-h, 42px);
+  height: var(--fdw-field-h, 40px);
   padding: 0 12px;
 }
 
 .form-display__textarea {
-  padding: 10px 12px;
-  line-height: 1.6;
+  padding: 8px 12px;
+  line-height: 1.5;
   resize: vertical;
 }
 
@@ -102,71 +124,93 @@ export const FORM_DISPLAY_CSS = `
   position: relative;
 }
 
+/* Room on the right for the chevron: 12px edge, 16px icon, 20px gap. */
 .form-display__select {
-  height: var(--fdw-field-h, 42px);
-  padding: 0 36px 0 12px;
+  height: var(--fdw-field-h, 40px);
+  padding: 0 48px 0 12px;
   appearance: none;
   cursor: pointer;
 }
 
+/*
+ * Craft select chevron: 16px, in the accent, drawn as two edges of a turned
+ * square (man-theme \`chevron\` in \`src/lib/_craft.scss\`).
+ */
 .form-display__select-arrow {
   position: absolute;
-  right: 13px;
+  right: 16px;
   top: 50%;
-  margin-top: -3px;
-  width: 0;
-  height: 0;
-  border-left: 5px solid transparent;
-  border-right: 5px solid transparent;
-  border-top: 6px solid #303c49;
+  width: 8px;
+  height: 8px;
+  margin-top: -4px;
+  border: solid var(--fdw-accent, var(--man-red, #e40045));
+  border-width: 0 2px 2px 0;
+  transform: translateY(-25%) rotate(45deg);
   pointer-events: none;
+}
+
+.form-display__input:hover,
+.form-display__textarea:hover,
+.form-display__select:hover {
+  border-color: var(--man-border-input-hover, #1e2832);
 }
 
 .form-display__input:focus,
 .form-display__textarea:focus,
 .form-display__select:focus {
-  border-color: #303c49;
-  box-shadow: inset 0 0 0 1px #303c49;
   outline: none;
 }
 
-.form-display__input:disabled,
-.form-display__textarea:disabled,
-.form-display__select:disabled {
-  border-color: #eeeff0;
-  background: #f7f7f8;
-  color: #9da3aa;
+.form-display__input:focus-visible,
+.form-display__textarea:focus-visible,
+.form-display__select:focus-visible {
+  outline: 2px solid var(--man-focus-color, #3875b2);
+  outline-offset: 2px;
 }
 
 .form-display__input--error,
 .form-display__textarea--error,
 .form-display__select--error {
-  border-color: #c10039;
-  border-left: 3px solid #c10039;
+  border-color: var(--man-error, #cc0000);
+}
+
+.form-display__input--error:hover,
+.form-display__textarea--error:hover,
+.form-display__select--error:hover {
+  border-color: var(--man-error-ink, #990000);
+}
+
+.form-display__input:disabled,
+.form-display__textarea:disabled,
+.form-display__select:disabled {
+  border-color: var(--man-grey-400, #afafaf);
+  background: var(--man-grey-200, #e5e5e5);
+  color: var(--man-text-disabled, #afafaf);
 }
 
 .form-display__input--date {
   font-variant-numeric: tabular-nums;
 }
 
+/* Craft helper-text: Man Europe 400 12px/1.5, #5b6f85 by default. */
 .form-display__counter {
-  font: 400 12px/1.5 'Roboto', Arial, sans-serif;
-  color: #9da3aa;
+  font: 400 12px/1.5 var(--man-font-body, "Man Europe", Arial, sans-serif);
+  color: var(--man-text-muted, #5b6f85);
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
 .form-display__helper {
-  font: 400 12px/1.5 'Roboto', Arial, sans-serif;
-  color: #71787f;
+  font: 400 12px/1.5 var(--man-font-body, "Man Europe", Arial, sans-serif);
+  color: var(--man-text-muted, #5b6f85);
 }
 
 .form-display__field-error {
   display: flex;
   gap: 6px;
   align-items: flex-start;
-  font: 400 12px/1.5 'Roboto', Arial, sans-serif;
-  color: #c10039;
+  font: 400 12px/1.5 var(--man-font-body, "Man Europe", Arial, sans-serif);
+  color: var(--man-error-ink, #990000);
 }
 
 .form-display__field-error svg {
@@ -174,25 +218,21 @@ export const FORM_DISPLAY_CSS = `
   margin-top: 2px;
 }
 
+/* Craft radio group: 12px between the options. */
 .form-display__choices {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 12px;
 }
 
-.form-display__choices--error {
-  border-left: 3px solid #c10039;
-  padding-left: 10px;
-}
-
+/* Craft body-m beside the box, 8px apart. */
 .form-display__choice {
   display: flex;
   align-items: center;
-  gap: 11px;
-  padding: 7px 0;
+  gap: 8px;
   cursor: pointer;
-  font: 400 14px/1.4 'Roboto', Arial, sans-serif;
-  color: #12171c;
+  font: 400 16px/1.5 var(--man-font-body, "Man Europe", Arial, sans-serif);
+  color: var(--man-text, #303c49);
 }
 
 .form-display__choice-input {
@@ -203,35 +243,90 @@ export const FORM_DISPLAY_CSS = `
   pointer-events: none;
 }
 
+/*
+ * Craft checkbox and radio-button: 20px, border 1px #5b6f85 on white, hover
+ * #1e2832. The checkbox is square and fills with the accent behind a white
+ * check; the radio is round and keeps a 12px accent dot inside a white gap.
+ */
 .form-display__choice-box {
-  width: 18px;
-  height: 18px;
-  flex: 0 0 18px;
-  border: 1px solid #9da3aa;
-  background: #ffffff;
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  border: 1px solid var(--man-border-input, #5b6f85);
+  border-radius: var(--man-radius, 0);
+  background: var(--man-surface, #ffffff);
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  transition:
+    background-color var(--man-duration, 100ms) var(--man-ease, linear),
+    border-color var(--man-duration, 100ms) var(--man-ease, linear);
+}
+
+.form-display__choice-input[type="radio"] + .form-display__choice-box {
+  border-radius: var(--man-radius-round, 50%);
+}
+
+.form-display__choice:hover .form-display__choice-box {
+  border-color: var(--man-border-input-hover, #1e2832);
+}
+
+.form-display__choice-input:checked + .form-display__choice-box {
+  border-color: var(--fdw-accent, var(--man-red, #e40045));
+}
+
+.form-display__choice-input[type="checkbox"]:checked + .form-display__choice-box {
+  background: var(--fdw-accent, var(--man-red, #e40045));
+}
+
+.form-display__choice:hover .form-display__choice-input:checked + .form-display__choice-box {
+  border-color: var(--fdw-accent-hover, var(--man-red-hover, #ad0040));
+}
+
+.form-display__choice:hover .form-display__choice-input[type="checkbox"]:checked + .form-display__choice-box {
+  background: var(--fdw-accent-hover, var(--man-red-hover, #ad0040));
 }
 
 .form-display__choice-input:focus-visible + .form-display__choice-box {
-  border-color: #303c49;
-  box-shadow: inset 0 0 0 1px #303c49;
+  outline: 2px solid var(--man-focus-color, #3875b2);
+  outline-offset: 2px;
 }
 
 .form-display__choice-core {
-  width: 10px;
-  height: 10px;
-  background: var(--fdw-accent, #e40045);
+  width: 12px;
+  height: 12px;
+  border-radius: var(--man-radius-round, 50%);
+  background: var(--fdw-accent, var(--man-red, #e40045));
+}
+
+.form-display__choice:hover .form-display__choice-core {
+  background: var(--fdw-accent-hover, var(--man-red-hover, #ad0040));
 }
 
 .form-display__choice-check {
-  stroke: var(--fdw-accent, #e40045);
+  stroke: var(--man-white, #ffffff);
+}
+
+/*
+ * Craft marks an invalid checkbox (border #cc0000, fill #ffb0b0, label
+ * #990000) but has no invalid state on a radio — there the error text below
+ * carries it alone.
+ */
+.form-display__choices--error .form-display__choice-input[type="checkbox"] + .form-display__choice-box {
+  border-color: var(--man-error, #cc0000);
+}
+
+.form-display__choices--error .form-display__choice-input[type="checkbox"]:not(:checked) + .form-display__choice-box {
+  background: var(--man-error-surface, #ffb0b0);
+}
+
+.form-display__choices--error .form-display__choice-input[type="checkbox"] + .form-display__choice-box + span {
+  color: var(--man-error-ink, #990000);
 }
 
 .form-display__footer {
   padding: 18px 24px;
-  border-top: 1px solid #d6d8db;
+  border-top: 1px solid var(--man-border, #cbd3dc);
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
@@ -240,8 +335,8 @@ export const FORM_DISPLAY_CSS = `
 }
 
 .form-display__footer-note {
-  font: 400 12px/1.5 'Roboto', Arial, sans-serif;
-  color: #71787f;
+  font: 400 12px/1.5 var(--man-font-body, "Man Europe", Arial, sans-serif);
+  color: var(--man-text-muted, #5b6f85);
 }
 
 .form-display__actions {
@@ -252,6 +347,12 @@ export const FORM_DISPLAY_CSS = `
 }
 
 /*
+ * Craft button m: 40px, padding 0 16px, border 2px, radius 0, Condensed 700
+ * 16px, at least 80px wide, mixed case. The plain button is Craft's
+ * standard-secondary (white with an anthracite border, hover #cbd3dc), the
+ * primary one accent-primary in the configured accent. \`#161616\` is Craft
+ * \`man-silver-900\`, which has no \`--man-*\`.
+ *
  * Buttons are hardened with !important on their visual core: the widget sits
  * in a page whose theme styles bare button elements (display, width, border,
  * background) and was seen turning these into stacked, borderless text.
@@ -263,48 +364,71 @@ export const FORM_DISPLAY_CSS = `
   box-sizing: border-box !important;
   width: auto !important;
   height: 40px !important;
+  min-width: 80px !important;
   margin: 0 !important;
-  padding: 0 18px !important;
+  padding: 0 16px !important;
   white-space: nowrap !important;
-  border: 1px solid #303c49 !important;
-  border-radius: 0 !important;
-  background: #ffffff !important;
-  color: #303c49 !important;
-  font: 700 13px/1 'MAN Europe', Arial, sans-serif !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.04em !important;
+  border: 2px solid var(--man-slate, #303c49) !important;
+  border-radius: var(--man-radius, 0) !important;
+  background: var(--man-surface, #ffffff) !important;
+  color: var(--man-slate, #303c49) !important;
+  font: 700 16px/1 var(--man-font-head, "Man Europe Condensed", Arial, sans-serif) !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
   text-decoration: none !important;
   box-shadow: none !important;
   cursor: pointer;
-  transition: background 160ms ease-out, color 160ms ease-out, border-color 160ms ease-out;
+  transition:
+    color var(--man-duration, 100ms) var(--man-ease, linear),
+    background-color var(--man-duration, 100ms) var(--man-ease, linear),
+    border-color var(--man-duration, 100ms) var(--man-ease, linear);
 }
 
 .form-display .form-display__button:hover:not(:disabled) {
-  background: #303c49 !important;
-  color: #ffffff !important;
+  background: var(--man-border, #cbd3dc) !important;
+  border-color: var(--man-slate-700, #1e2832) !important;
+  color: var(--man-slate-700, #1e2832) !important;
+}
+
+.form-display .form-display__button:active:not(:disabled) {
+  background: var(--man-slate-200, #abb6c3) !important;
+  border-color: #161616 !important;
+  color: #161616 !important;
 }
 
 .form-display .form-display__button--primary {
-  padding: 0 22px !important;
-  border-color: var(--fdw-accent, #e40045) !important;
-  background: var(--fdw-accent, #e40045) !important;
-  color: #ffffff !important;
+  border-color: var(--fdw-accent, var(--man-red, #e40045)) !important;
+  background: var(--fdw-accent, var(--man-red, #e40045)) !important;
+  color: var(--man-white, #ffffff) !important;
 }
 
 .form-display .form-display__button--primary:hover:not(:disabled) {
-  background: var(--fdw-accent-hover, #c10039) !important;
-  border-color: var(--fdw-accent-hover, #c10039) !important;
-  color: #ffffff !important;
+  background: var(--fdw-accent-hover, var(--man-red-hover, #ad0040)) !important;
+  border-color: var(--fdw-accent-hover, var(--man-red-hover, #ad0040)) !important;
+  color: var(--man-white, #ffffff) !important;
 }
 
 .form-display .form-display__button--primary:active:not(:disabled) {
-  background: var(--fdw-accent-active, #9e002f) !important;
-  border-color: var(--fdw-accent-active, #9e002f) !important;
+  background: var(--fdw-accent-active, var(--man-red-active, #8a003b)) !important;
+  border-color: var(--fdw-accent-active, var(--man-red-active, #8a003b)) !important;
+  color: var(--man-white, #ffffff) !important;
 }
 
 .form-display .form-display__button:disabled {
-  opacity: 0.55;
+  background: var(--man-surface, #ffffff) !important;
+  border-color: var(--man-grey-400, #afafaf) !important;
+  color: var(--man-grey-400, #afafaf) !important;
   cursor: default;
+}
+
+.form-display .form-display__button--primary:disabled {
+  background: var(--man-grey-200, #e5e5e5) !important;
+  border-color: var(--man-grey-200, #e5e5e5) !important;
+}
+
+.form-display .form-display__button:focus-visible {
+  outline: 2px solid var(--man-focus-color, #3875b2) !important;
+  outline-offset: 2px !important;
 }
 
 .form-display__answers-cta {
@@ -315,13 +439,14 @@ export const FORM_DISPLAY_CSS = `
   position: fixed;
   inset: 0;
   z-index: 2147483000;
-  background: rgba(18, 23, 28, 0.6);
+  background: var(--man-overlay, rgba(53, 53, 53, 0.6));
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 24px;
 }
 
+/* Craft modal: white, square and flat, set off by the hairline alone. */
 .form-display__modal {
   box-sizing: border-box;
   width: 100%;
@@ -329,10 +454,11 @@ export const FORM_DISPLAY_CSS = `
   max-height: 80vh;
   display: flex;
   flex-direction: column;
-  background: #ffffff;
-  border: 1px solid #d6d8db;
-  font-family: 'Roboto', Arial, sans-serif;
-  color: #12171c;
+  background: var(--man-surface, #ffffff);
+  border: 1px solid var(--man-border, #cbd3dc);
+  box-shadow: none;
+  font-family: var(--man-font-body, "Man Europe", Arial, sans-serif);
+  color: var(--man-text, #303c49);
 }
 
 .form-display__modal:focus {
@@ -345,20 +471,22 @@ export const FORM_DISPLAY_CSS = `
   justify-content: space-between !important;
   gap: 16px;
   padding: 12px 16px;
-  border-bottom: 1px solid #d6d8db;
-  background: #f7f7f8;
+  border-bottom: 1px solid var(--man-border, #cbd3dc);
+  background: var(--man-surface-sunken, #f8f8f8);
 }
 
+/* An h3 in the host page, which may bring capitals and tracking of its own. */
 .form-display__modal-title {
   flex: 1 1 auto;
   margin: 0 !important;
-  font: 700 13px/1.2 'MAN Europe', Arial, sans-serif !important;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  font: 700 16px/1.3 var(--man-font-head, "Man Europe Condensed", Arial, sans-serif) !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
   text-align: left !important;
-  color: #12171c !important;
+  color: var(--man-text, #303c49) !important;
 }
 
+/* An icon button: no fill on hover or press, only the icon darkens (Craft). */
 .form-display__modal .form-display__modal-close {
   width: 32px !important;
   height: 32px !important;
@@ -368,16 +496,25 @@ export const FORM_DISPLAY_CSS = `
   border: 0 !important;
   border-radius: 0 !important;
   background: none !important;
-  color: #303c49 !important;
+  color: var(--man-slate, #303c49) !important;
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
   cursor: pointer;
-  transition: color 160ms ease-out;
+  transition: color var(--man-duration, 100ms) var(--man-ease, linear);
 }
 
 .form-display__modal .form-display__modal-close:hover {
-  color: #c10039 !important;
+  color: var(--man-slate-700, #1e2832) !important;
+}
+
+.form-display__modal .form-display__modal-close:active {
+  color: #161616 !important;
+}
+
+.form-display__modal .form-display__modal-close:focus-visible {
+  outline: 2px solid var(--man-focus-color, #3875b2) !important;
+  outline-offset: 2px !important;
 }
 
 .form-display__modal-body {
@@ -389,7 +526,7 @@ export const FORM_DISPLAY_CSS = `
 }
 
 .form-display__answer {
-  border: 1px solid #d6d8db;
+  border: 1px solid var(--man-border, #cbd3dc);
 }
 
 /* A button, and inside the host page — hardened like the other buttons. */
@@ -404,23 +541,29 @@ export const FORM_DISPLAY_CSS = `
   padding: 9px 13px !important;
   border: 0 !important;
   border-radius: 0 !important;
-  background: #f7f7f8 !important;
-  color: #545b62 !important;
-  font: 400 12px/1.4 'Roboto', Arial, sans-serif !important;
+  background: var(--man-surface-sunken, #f8f8f8) !important;
+  color: var(--man-text-muted, #5b6f85) !important;
+  font: 400 12px/1.4 var(--man-font-body, "Man Europe", Arial, sans-serif) !important;
   font-variant-numeric: tabular-nums;
   text-align: left !important;
   text-transform: none !important;
+  letter-spacing: normal !important;
   box-shadow: none !important;
   cursor: pointer;
 }
 
+.form-display__modal .form-display__answer-toggle:focus-visible {
+  outline: 2px solid var(--man-focus-color, #3875b2) !important;
+  outline-offset: 2px !important;
+}
+
 .form-display__answer-toggle svg {
   flex: 0 0 12px;
-  transition: transform 160ms ease-out;
+  transition: transform var(--man-duration, 100ms) var(--man-ease, linear);
 }
 
 .form-display__answer-toggle[aria-expanded="true"] {
-  border-bottom: 1px solid #eeeff0 !important;
+  border-bottom: 1px solid var(--man-border-subtle, #eaedf3) !important;
 }
 
 .form-display__answer-toggle[aria-expanded="true"] svg {
@@ -432,7 +575,7 @@ export const FORM_DISPLAY_CSS = `
   justify-content: space-between;
   gap: 16px;
   padding: 9px 13px;
-  border-bottom: 1px solid #eeeff0;
+  border-bottom: 1px solid var(--man-border-subtle, #eaedf3);
 }
 
 .form-display__answer-row:last-child {
@@ -440,13 +583,13 @@ export const FORM_DISPLAY_CSS = `
 }
 
 .form-display__answer-label {
-  font: 400 13px/1.4 'Roboto', Arial, sans-serif;
-  color: #71787f;
+  font: 400 13px/1.4 var(--man-font-body, "Man Europe", Arial, sans-serif);
+  color: var(--man-text-muted, #5b6f85);
 }
 
 .form-display__answer-value {
-  font: 400 13px/1.4 'Roboto', Arial, sans-serif;
-  color: #12171c;
+  font: 400 13px/1.4 var(--man-font-body, "Man Europe", Arial, sans-serif);
+  color: var(--man-text, #303c49);
   text-align: right;
   overflow-wrap: anywhere;
 }
@@ -460,18 +603,19 @@ export const FORM_DISPLAY_CSS = `
   text-align: center;
 }
 
+/* Craft success: the green surface with its dark green ink for the check. */
 .form-display__success-icon {
   width: 34px;
   height: 34px;
-  background: #91b900;
+  background: var(--man-success, #dfe9bc);
+  color: var(--man-success-ink, #2d6300);
   display: inline-flex;
   align-items: center;
   justify-content: center;
 }
 
 .form-display__success-title {
-  font: 700 16px/1.25 'MAN Europe', Arial, sans-serif;
-  letter-spacing: -0.01em;
+  font: 700 16px/1.3 var(--man-font-head, "Man Europe Condensed", Arial, sans-serif);
 }
 
 .form-display__sr-only {
@@ -486,23 +630,23 @@ export const FORM_DISPLAY_CSS = `
 .form-display__status {
   margin: 0;
   padding: 22px 24px;
-  font: 400 14px/1.5 'Roboto', Arial, sans-serif;
-  color: #71787f;
+  font: 400 14px/1.5 var(--man-font-body, "Man Europe", Arial, sans-serif);
+  color: var(--man-text-muted, #5b6f85);
 }
 
 .form-display__notice {
   margin: 0;
   padding: 22px 24px;
-  font: 400 14px/1.55 'Roboto', Arial, sans-serif;
-  color: #545b62;
+  font: 400 14px/1.55 var(--man-font-body, "Man Europe", Arial, sans-serif);
+  color: var(--man-text-muted, #5b6f85);
 }
 
 .form-display__error {
   margin: 0;
   padding: 22px 24px;
-  border-left: 3px solid #c10039;
-  font: 400 14px/1.55 'Roboto', Arial, sans-serif;
-  color: #c10039;
+  border-left: 3px solid var(--man-error, #cc0000);
+  font: 400 14px/1.55 var(--man-font-body, "Man Europe", Arial, sans-serif);
+  color: var(--man-error-ink, #990000);
 }
 
 .form-display__submit-error {
@@ -510,8 +654,8 @@ export const FORM_DISPLAY_CSS = `
   display: flex;
   gap: 6px;
   align-items: flex-start;
-  font: 400 12px/1.5 'Roboto', Arial, sans-serif;
-  color: #c10039;
+  font: 400 12px/1.5 var(--man-font-body, "Man Europe", Arial, sans-serif);
+  color: var(--man-error-ink, #990000);
 }
 `;
 

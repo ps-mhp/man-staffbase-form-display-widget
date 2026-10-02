@@ -48,7 +48,7 @@ export const configurationSchema: JSONSchema7 = {
       title: "Dichte",
       default: "standard",
       oneOf: [
-        { const: "standard", title: "Standard (42 px)" },
+        { const: "standard", title: "Standard (40 px)" },
         { const: "compact", title: "Kompakt (36 px)" },
       ],
     },
@@ -77,7 +77,7 @@ export const uiSchema: UiSchema = {
     "ui:help": "Farbe für Absenden-Button, Pflichtfeld-Marker und Auswahl-Häkchen.",
   },
   density: {
-    "ui:help": "Kompakt reduziert die Feldhöhe von 42 auf 36 px.",
+    "ui:help": "Kompakt reduziert die Feldhöhe von 40 auf 36 px.",
   },
   "required-marker": {
     "ui:help": "Wie Pflichtfelder im Label gekennzeichnet werden.",

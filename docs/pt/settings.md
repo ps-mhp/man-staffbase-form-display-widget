@@ -4,7 +4,7 @@
 | --- | --- |
 | Formulário | O formulário a apresentar. Campo obrigatório. Normalmente, através da lista de seleção; em alternativa, insira o endereço completo do formulário ou a sequência de 24 caracteres no final do mesmo. |
 | Cor de destaque | Cor para o botão «Enviar», o marcador de campos obrigatórios e as marcas de seleção. Predefinição: MAN Vermelho; em alternativa, antracite ou preto. |
-| Densidade | Padrão (42 px de altura do campo) ou Compacto (36 px) — para páginas com pouco espaço. |
+| Densidade | Padrão (40 px de altura do campo) ou Compacto (36 px) — para páginas com pouco espaço. |
 | Indicação de campo obrigatório | Asterisco (`*`) ou `(required)` por extenso a seguir ao rótulo. |
 
 ## Para a lista de seleção

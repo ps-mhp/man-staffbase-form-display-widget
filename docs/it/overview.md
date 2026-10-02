@@ -4,7 +4,7 @@ La visualizzazione del modulo inserisce un modulo Staffbase esistente in una
 pagina qualsiasi. I lettori possono compilarlo e inviarlo direttamente da lì,
 senza dover passare all’area dei moduli — ad esempio sulla pagina iniziale, su una
 pagina del team o in una pagina dedicata a un'iniziativa. Viene visualizzato secondo lo stile MAN CI: campi squadrati,
-evidenziazione in antracite, rosso solo per il pulsante di invio, indicatori dei campi obbligatori
+evidenziazione in blu, rosso solo per il pulsante di invio, indicatori dei campi obbligatori
 e messaggi di errore.
 
 ## Cosa fa il widget — e cosa non fa

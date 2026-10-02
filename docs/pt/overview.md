@@ -4,7 +4,7 @@ A visualização do formulário permite inserir um formulário existente do Staf
 qualquer página. Os leitores podem preenchê-lo e enviá-lo diretamente a partir daí,
 sem terem de aceder à secção de formulários — por exemplo, na página inicial, numa
 página de equipa ou numa página de ação. É apresentado no MAN CI: campos quadrados,
-foco em antracite, vermelho apenas para o botão de envio, marcadores de campos obrigatórios
+foco em azul, vermelho apenas para o botão de envio, marcadores de campos obrigatórios
 e mensagens de erro.
 
 ## O que o widget faz — e o que não faz
