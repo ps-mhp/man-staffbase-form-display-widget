@@ -1,6 +1,6 @@
 {
-  "title": "Affichage du formulaire",
-  "summary": "Affiche un formulaire Staffbase existant directement dans l'interface client MAN, sur la page de votre choix.",
+  "title": "Affichage des formulaires",
+  "summary": "Affiche un formulaire Staffbase existant dans le CI MAN directement sur n’importe quelle page.",
   "icon": "📝",
   "pages": [
     {
@@ -15,7 +15,7 @@
     },
     {
       "id": "settings",
-      "title": "Paramètres",
+      "title": "Décors",
       "file": "settings.md"
     },
     {

@@ -1,6 +1,6 @@
 {
-  "title": "Visualizzazione del modulo",
-  "summary": "Visualizza un modulo Staffbase esistente nell'interfaccia MAN CI direttamente su una pagina qualsiasi.",
+  "title": "Visualizzazione dei moduli",
+  "summary": "Visualizza un modulo Staffbase esistente nel CI MAN direttamente su qualsiasi pagina.",
   "icon": "📝",
   "pages": [
     {

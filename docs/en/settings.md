@@ -2,13 +2,13 @@
 
 | Setting | Description |
 | --- | --- |
-| Form | The form to display. Required field. Typically selected from the drop-down list; alternatively, enter the full form URL or the 24-character string at the end of it. |
-| Accent Color | Color for the submit button, required field marker, and checkbox. Default: MAN Red; alternatively, Anthracite or Black. |
+| Form | The form to be displayed. Required field. Usually via the drop-down list; alternatively, insert the full form address or the 24-digit string at the end of it. |
+| Accent colour | Colour for the submit button, mandatory field marker and selection tick. Default MAN red; alternatively anthracite or black. |
 | Density | Standard (40 px field height) or Compact (36 px) — for pages with limited space. |
-| Required Field Marker | Asterisk (`*`) or "Required" (`(required)`) after the label. |
+| Mandatory field marker | Asterisk ('*') or written out '(required)' after the label. |
 
-## About the Selection List
+## Add to shortlist
 
-The list shows only forms for which you have **administrative rights**. A
-third-party form that you are permitted to embed will not appear there; however,
-it can still be added by entering its URL.
+The list only shows forms for which you have **administrative rights**. A
+foreign form that you are allowed to embed does not appear there; it
+can still be entered by inserting the address.

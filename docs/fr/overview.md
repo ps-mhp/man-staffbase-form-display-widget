@@ -1,42 +1,41 @@
-# Affichage du formulaire
+# Affichage de formulaires
 
-L’affichage du formulaire permet d’intégrer un formulaire Staffbase existant sur n’importe quelle
-page. Les lecteurs peuvent le remplir et l’envoyer directement depuis cette page,
-sans avoir à se rendre dans la section « Formulaires » — par exemple sur la page d’accueil, une
-page d’équipe ou une page d’action. Il s’affiche selon les normes MAN CI : champs carrés,
-surlignage en bleu, rouge uniquement pour le bouton d’envoi, indicateurs de champs obligatoires
-et messages d’erreur.
+Le visualiseur de formulaire amène un formulaire existant de la Staffbase vers un
+n’importe quelle page. Les lecteurs peuvent la remplir et l’envoyer directement là-bas, 
+sans passer à la zone de formulaire — par exemple, sur la page d’accueil, un
+page d’équipe ou page d’action. Elle est affichée dans le CI MAN : angular
+Champs, focus en bleu, rouge seulement pour le bouton d’envoi, marqueur de champ obligatoire
+et des messages d’erreur. 
 
-## Ce que fait le widget — et ce qu’il ne fait pas
+## Ce que le widget fait — et ne fait pas
 
-Il **affiche** un formulaire déjà créé dans l’application Formulaires de Staffbase.
-Il **ne crée pas** de formulaire et **ne modifie pas** les questions.
-Les questions, les destinataires et l’analyse restent entièrement dans l’application Formulaires ; le
-widget n’est qu’un deuxième lieu d’affichage.
+Il **affiche** un formulaire déjà disponible dans l’application Staffbase
+est créé. Il ne crée **pas** de formulaire et **ne** modifie pas les questions. 
+Les questions, les destinataires et l’évaluation restent entièrement dans l’application de formulaire ; le
+Widget n’est qu’un second emplacement de sortie. 
 
-Il en résulte qu’il faut d’abord créer et
-publier le formulaire dans l’application Formulaires, puis intégrer le widget.
+Cela signifie : D’abord créer le formulaire dans l’application formulaire et
+, puis insérer le widget. 
 
-## Ce que voient les lectrices et lecteurs
+## Ce que voient les lecteurs
 
-- Les questions du formulaire dans l’ordre dans lequel elles ont été créées,
-  avec l’indication des champs obligatoires et les textes d’aide.
-- La validation n’a lieu qu’au moment de l’envoi ; ensuite, le curseur se place sur le premier
-  champ obligatoire manquant. Le pied de page indique le nombre de champs obligatoires non renseignés.
-- Après l’envoi, le message de remerciement de l’application de formulaire remplace l’intégralité
-  du formulaire.
-- Les personnes ayant déjà répondu et qui ne sont pas autorisées à répondre à nouveau voient, à la place du
-  formulaire, une mention correspondante.
-- Si l’option « Allow users to view their previous submissions » est
-  activée dans l’application de formulaire, un bouton « Your previous submissions » apparaît ; les personnes qui ne sont plus
-  est activée, un bouton « Your previous submissions » apparaît ; les personnes qui ne sont plus
-  autorisées à répondre peuvent consulter directement leurs réponses précédentes.
+- Les questions de la forme dans l’ordre dans lequel elles ont été créées, 
+  avec des marquages de champs obligatoires et des textes d’information. 
+- La vérification n’est effectuée qu’à l’envoi ; puis la mise au point passe au premier
+  Champ obligatoire manquant. Le pied de pied compte les champs obligatoires ouverts. 
+- Une fois soumis, le message de remerciement de l’application Forms remplace l’intégralité
+  forme. 
+- Si vous avez déjà répondu et que vous n’êtes pas autorisé à répondre à nouveau, vous verrez le
+  forme. 
+- Est-ce que « Permettre aux utilisateurs de voir leurs soumissions précédentes » dans l’application de formulaires 
+  activé, il y a un bouton « Vos soumissions précédentes » ; si vous n’êtes plus activé
+  voit directement ses réponses précédentes. 
 
-## À savoir
+## Important à savoir
 
-- C’est l’application de formulaire qui détermine si une personne est autorisée à envoyer (à nouveau) le formulaire — le widget
-  lui demande cette information et s’y conforme.
-- Les réponses sont intégrées comme d’habitude dans l’analyse de l’application de formulaire. Il n’y a
-  pas d’analyse distincte par page.
-- Les questions s’affichent dans la langue que l’application de formulaire détermine pour la personne
-  qui les lit ; l’interface utilisateur du widget est en anglais.
+- Le fait que quelqu’un soit autorisé à soumettre (à nouveau) est décidé par l’application de formulaire — le widget
+  demande-t-elle et la suit. 
+- Les réponses s’exécutent comme d’habitude dans l’évaluation de l’application de formulaire. Elle est créée
+  Pas d’évaluation séparée par page. 
+- Les questions apparaissent dans la langue utilisée par l’application de formulaires pour le lecteur
+  personne ; l’interface utilisateur du widget est en anglais.

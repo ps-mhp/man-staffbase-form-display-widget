@@ -1,6 +1,6 @@
 {
-  "title": "Wyświetlanie formularza",
-  "summary": "Wyświetla istniejący formularz Staffbase bezpośrednio w interfejsie MAN CI na dowolnej stronie.",
+  "title": "Wyświetlanie form",
+  "summary": "Wyświetla istniejący formularz Staffbase w MAN CI bezpośrednio na dowolnej stronie.",
   "icon": "📝",
   "pages": [
     {
@@ -20,7 +20,7 @@
     },
     {
       "id": "faq",
-      "title": "Najczęściej zadawane pytania",
+      "title": "FAQ",
       "file": "faq.md"
     }
   ]

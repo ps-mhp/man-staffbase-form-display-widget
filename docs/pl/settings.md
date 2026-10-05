@@ -1,14 +1,14 @@
 # Ustawienia
 
-| Ustawienie | Opis |
+| Miejsce akcji | Opis |
 | --- | --- |
-| Formularz | Formularz, który ma zostać wyświetlony. Pole obowiązkowe. Zazwyczaj wybiera się go z listy rozwijanej; alternatywnie można wpisać pełny adres formularza lub 24-znakowy ciąg znaków znajdujący się na jego końcu. |
-| Kolor akcentujący | Kolor przycisku „Wyślij”, znacznika pól obowiązkowych i zaznaczeń wyboru. Domyślnie MAN Czerwony; alternatywnie antracyt lub czarny. |
-| Gęstość | Standardowa (wysokość pola 40 px) lub kompaktowa (36 px) — dla stron o ograniczonej przestrzeni. |
-| Oznaczenie pola obowiązkowego | Gwiazdka (`*`) lub pełna nazwa `(required)` po etykiecie. |
+| Formularz | Formularz do wyświetlenia. Wymagane pole. Zazwyczaj przez listę rozwijaną; alternatywnie można wstawić pełny adres formularza lub 24-cyfrowy ciąg znaków na jego końcu. |
+| Kolor akcentu | Kolor przycisku wyślij, obowiązkowego znacznika pola i zaznaczenia wyboru. Domyślny MAN czerwony; alternatywnie antracyt lub. |
+| Gęstość | Standardowa (40 px wysokość pola) lub Compact (36 px) — dla stron z ograniczoną przestrzenią. |
+| Obowiązkowy znacznik pola | Gwiazdka ('*') lub napisane '(wymagane)' po etykiecie. |
 
-## Do listy wyboru
+## Dodaj do listy kandydatów
 
-Lista wyświetla tylko formularze, do których masz **uprawnienia administracyjne**.
-Formularz zewnętrzny, który możesz osadzić, nie pojawia się więc na tej liście;
-można go jednak dodać, wpisując adres.
+Lista pokazuje tylko formularze, do których masz **prawa administracyjne**. A
+obca forma, którą można osadzić, nie pojawia się tam; ona
+można nadal wprowadzić przez wstawienie adresu.
