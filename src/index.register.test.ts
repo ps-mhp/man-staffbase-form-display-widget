@@ -17,13 +17,9 @@ export {};
 
 const mockStartWidget = jest.fn().mockResolvedValue(undefined);
 const mockStartFormDisplayDialog = jest.fn(() => () => undefined);
-const mockStartEntityPickerInjector = jest.fn(() => () => undefined);
 
 jest.mock("@shared/dev-mode/start-widget", () => ({ startWidget: mockStartWidget }));
 jest.mock("./form-dialog", () => ({ startFormDisplayDialog: mockStartFormDisplayDialog }));
-jest.mock("@shared/entity-picker/entity-picker-injector", () => ({
-  startEntityPickerInjector: mockStartEntityPickerInjector,
-}));
 
 interface Host {
   defineBlock?: jest.Mock;
@@ -58,14 +54,6 @@ describe("Anmeldung des Widgets", () => {
         }),
       }),
     );
-    stopPluginBlockGuard();
-  });
-
-  it("hängt keine Auswahlliste mehr an das alte Feld form-id – die Liste steht im Fenster", async () => {
-    jest.resetModules();
-    const { stopPluginBlockGuard } = await import("./index");
-
-    expect(mockStartEntityPickerInjector).not.toHaveBeenCalled();
     stopPluginBlockGuard();
   });
 });
