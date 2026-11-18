@@ -31,9 +31,10 @@
  */
 
 import * as React from "react";
-import { TriangleAlert } from "lucide-react";
 import { Field } from "@man/config-ui/form/field";
+import { FormHeading as HeadingBlock } from "@man/config-ui/form/form-heading";
 import { FormSection } from "@man/config-ui/form/form-section";
+import { IssueText } from "@man/config-ui/form/issue-text";
 import type { IconComponent, SegmentedOption } from "@man/config-ui/form/segmented";
 import { SegmentedField } from "@man/config-ui/form/segmented-field";
 import { Input } from "@man/config-ui/primitives/input";
@@ -47,7 +48,6 @@ export interface SectionProps {
   onChange: (value: FormDisplayConfig) => void;
 }
 
-const HINT = "text-[13px] text-muted-foreground";
 
 const ACCENT_LABELS: Readonly<Record<AccentColor, string>> = {
   "#e40045": "MAN Rot",
@@ -96,16 +96,6 @@ const MARKER_HINT = "Steht hinter jedem Pflichtfeld des Formulars.";
 /** Für einen Schlüssel, den das Fenster aus dem alten Feld nicht lesen konnte. */
 export const KEEP_HINT = "Noch nicht gewählt – bis dahin gilt die bisherige Einstellung des Blocks.";
 
-/** Eine Meldung wie die von `Field`: Symbol und Text, vorgelesen, sobald sie erscheint. */
-export function IssueText({ children }: { children: React.ReactNode }): React.ReactElement {
-  return (
-    <p role="alert" className="flex items-start gap-1.5 text-[13px] text-destructive">
-      <TriangleAlert className="mt-0.5 size-3.5 shrink-0" aria-hidden />
-      <span>{children}</span>
-    </p>
-  );
-}
-
 interface ChoiceFieldProps<T extends string> {
   label: string;
   options: readonly SegmentedOption<T>[];
@@ -145,15 +135,13 @@ export interface FormHeadingProps {
 export function FormHeading({ formId, title, kicker, issue }: FormHeadingProps): React.ReactElement {
   const chosen = formId !== undefined;
   return (
-    <div className="flex flex-col gap-1.5" data-testid="form-heading">
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1">
-        <h2 className="text-xl leading-[1.3] font-semibold break-words text-foreground">
-          {chosen ? title : "Noch kein Formular gewählt"}
-        </h2>
-        <span className={HINT}>{chosen ? kicker : "Formular links in der Liste wählen"}</span>
-      </div>
+    <HeadingBlock
+      title={chosen ? title : "Noch kein Formular gewählt"}
+      kicker={chosen ? kicker : "Formular links in der Liste wählen"}
+      data-testid="form-heading"
+    >
       {issue !== undefined && <IssueText>{issue}</IssueText>}
-    </div>
+    </HeadingBlock>
   );
 }
 
