@@ -28,17 +28,24 @@ import * as React from "react";
 import { ClipboardList } from "lucide-react";
 
 import { FieldModalShellOptions, startFieldModalInjector } from "@shared/config-modal";
+import { legacyFieldsFromSchema, readLegacyFields, startHiddenFields } from "@shared/legacy-fields";
 
-import { FORM_DISPLAY_CONFIG_ATTRIBUTE, LEGACY_ATTRIBUTES } from "./configuration-schema";
+import { FORM_DISPLAY_CONFIG_ATTRIBUTE, LEGACY_ATTRIBUTES, configurationSchema } from "./configuration-schema";
 import {
   FormDisplayConfig,
+  LegacyFormAttributes,
   configFromLegacy,
   mergeFormDisplayConfig,
   readFormDisplayConfig,
   serializeFormDisplayConfig,
 } from "./form-display-config";
 import { formChangesStatus, validateFormDisplayConfig } from "./form-editor-rules";
-import { readLegacyFromDialog, startHiddenFields } from "./legacy-fields";
+
+const LEGACY_FIELDS = legacyFieldsFromSchema(LEGACY_ATTRIBUTES, configurationSchema);
+
+/** Die alten Felder, wie der eigene Dialog sie gerade führt. */
+const readLegacyFromDialog = (root: ParentNode): LegacyFormAttributes =>
+  readLegacyFields(LEGACY_FIELDS, FORM_DISPLAY_CONFIG_ATTRIBUTE, root).values as LegacyFormAttributes;
 
 /**
  * Der Editor kommt erst, wenn ein Dialog ihn zeigt: er baut auf

@@ -35,7 +35,7 @@ export const REQUIRED_MARKER_ATTRIBUTE = "required-marker";
  * Dialog ihre Werte führt und alte Blöcke sie behalten: was das Fenster beim
  * Öffnen lesen kann, übernimmt es als Ausgangsstand; was nicht, gilt weiter
  * aus dem alten Feld. Zu sehen sind sie im eigenen Dialog nicht mehr
- * (`legacy-fields.ts`).
+ * (`@shared/legacy-fields`).
  */
 export const LEGACY_ATTRIBUTES = [
   FORM_ID_ATTRIBUTE,
