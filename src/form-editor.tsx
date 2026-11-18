@@ -27,8 +27,9 @@ import * as React from "react";
 import { InspectorPanel } from "@man/config-ui/inspector/inspector-panel";
 import { ConfigWorkspace } from "@man/config-ui/layout/config-workspace";
 import { useConfigShell } from "@man/config-ui/shell/shell-context";
+import { useEntityCatalog } from "@shared/entity-picker/use-entity-catalog";
 
-import { FormCatalog, FormCatalogLoader, formsOf, loadFormCatalog, useFormCatalog } from "./form-catalog-state";
+import { FormCatalog, FormCatalogLoader, loadFormCatalog } from "./form-catalog-state";
 import type { FormDisplayConfig } from "./form-display-config";
 import { DesignSection, FormHeading, ManualIdSection } from "./form-editor-sections";
 import { FORM_ISSUE, validateFormDisplayConfig } from "./form-editor-rules";
@@ -52,8 +53,8 @@ interface Labels {
 /** Was im Kopf zum Ablesen steht: Titel, wo bekannt, sonst die ID. */
 function labelsOf(catalog: FormCatalog, formId: string | undefined): Labels {
   if (formId === undefined) return { title: "", kicker: "" };
-  const form = formsOf(catalog.state).find((option) => option.id === formId);
-  if (catalog.state.status !== "ready") return { title: formId, kicker: "Formular" };
+  const form = catalog.items.find((option) => option.id === formId);
+  if (catalog.status !== "ready") return { title: formId, kicker: "Formular" };
   return form === undefined
     ? { title: formId, kicker: "Formular · nicht in der Liste" }
     : { title: form.title, kicker: "Formular · links gewählt" };
@@ -72,7 +73,7 @@ function useFormIssue(value: FormDisplayConfig): string | undefined {
  * dabei, auch wenn „Erneut versuchen“ die Liste neu lädt.
  */
 function useManualOpen(catalog: FormCatalog): boolean {
-  const empty = catalog.state.status === "ready" && catalog.state.forms.length === 0;
+  const empty = catalog.status === "ready" && catalog.items.length === 0;
   const [open, setOpen] = React.useState(empty);
   React.useEffect(() => {
     if (empty) setOpen(true);
@@ -92,7 +93,7 @@ function PreviewInspector({ value, onChange, issue }: FormEditorProps & { issue:
 }
 
 export function FormEditor({ value, onChange, loadCatalog = loadFormCatalog }: FormEditorProps): React.ReactElement {
-  const catalog = useFormCatalog(loadCatalog);
+  const catalog = useEntityCatalog(loadCatalog);
   const labels = labelsOf(catalog, value.formId);
   const issue = useFormIssue(value);
   const manualOpen = useManualOpen(catalog);

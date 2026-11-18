@@ -12,57 +12,21 @@
  */
 
 /**
- * Die Liste der Formulare im Fenster „Formular wählen“: laden, neu laden.
- *
- * `fetchEntityCatalog` wirft nie – ein Fehler kommt als leere Liste an. Darum
- * kennt der Zustand nur „lädt“ und „da“; eine leere Liste sagt die
- * Seitenleiste als „keine gefunden oder nicht geladen“ an und bietet
- * „Erneut versuchen“ und die Eingabe von Hand.
+ * Die Liste der Formulare im Fenster „Formular wählen“. Geladen wird sie mit
+ * `useEntityCatalog`: `fetchEntityCatalog` wirft nie – ein Fehler kommt als
+ * leere Liste an, und eine leere Liste sagt die Seitenleiste als „keine
+ * gefunden oder nicht geladen“ an und bietet „Erneut versuchen“ und die
+ * Eingabe von Hand.
  */
 
-import * as React from "react";
 import { EntityOption, fetchEntityCatalog } from "@shared/entity-picker/entity-catalog";
+import type { EntityCatalog } from "@shared/entity-picker/use-entity-catalog";
 
 import { formCatalogSource } from "./form-catalog";
 
 export type FormCatalogLoader = () => Promise<EntityOption[]>;
 
-export type FormCatalogState = { status: "loading" } | { status: "ready"; forms: readonly EntityOption[] };
-
-export interface FormCatalog {
-  state: FormCatalogState;
-  reload: () => void;
-}
+export type FormCatalog = EntityCatalog<EntityOption>;
 
 /** Was das Widget wirklich lädt: die Formulare mit Verwaltungsrechten. */
 export const loadFormCatalog: FormCatalogLoader = () => fetchEntityCatalog(formCatalogSource);
-
-const NO_FORMS: readonly EntityOption[] = [];
-
-export function useFormCatalog(load: FormCatalogLoader = loadFormCatalog): FormCatalog {
-  const [state, setState] = React.useState<FormCatalogState>({ status: "loading" });
-  const [round, setRound] = React.useState(0);
-
-  React.useEffect(() => {
-    // Ein neuer Ladelauf macht das Ergebnis des alten bedeutungslos.
-    let current = true;
-    setState({ status: "loading" });
-    load()
-      .then((forms) => {
-        if (current) setState({ status: "ready", forms });
-      })
-      .catch(() => {
-        if (current) setState({ status: "ready", forms: NO_FORMS });
-      });
-    return () => {
-      current = false;
-    };
-  }, [load, round]);
-
-  const reload = React.useCallback(() => setRound((value) => value + 1), []);
-  return { state, reload };
-}
-
-/** Die Formulare, sobald geladen; sonst leer. */
-export const formsOf = (state: FormCatalogState): readonly EntityOption[] =>
-  state.status === "ready" ? state.forms : NO_FORMS;

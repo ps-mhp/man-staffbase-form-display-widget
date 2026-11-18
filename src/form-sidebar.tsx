@@ -25,11 +25,12 @@ import * as React from "react";
 import { ClipboardList } from "lucide-react";
 import { Button } from "@man/config-ui/primitives/button";
 import { ItemList, type ListItem } from "@man/config-ui/sidebar/item-list";
+import { SidebarFootnote } from "@man/config-ui/sidebar/sidebar-footnote";
 import { SidebarPanel } from "@man/config-ui/sidebar/sidebar-panel";
 import { SidebarSearch } from "@man/config-ui/sidebar/sidebar-search";
 import type { EntityOption } from "@shared/entity-picker/entity-catalog";
 
-import { FormCatalog, formsOf } from "./form-catalog-state";
+import type { FormCatalog } from "./form-catalog-state";
 
 export interface FormSidebarProps {
   catalog: FormCatalog;
@@ -79,10 +80,10 @@ function EmptyNote({ onRetry }: { onRetry: () => void }): React.ReactElement {
 }
 
 function FormList({ catalog, selectedId, onSelect, query }: FormSidebarProps & { query: string }): React.ReactElement {
-  const forms = formsOf(catalog.state);
+  const forms = catalog.items;
   const items = React.useMemo(() => itemsOf(filterForms(forms, query)), [forms, query]);
 
-  if (catalog.state.status === "loading") {
+  if (catalog.status === "loading") {
     return (
       <p role="status" className={NOTE}>
         Formulare werden geladen …
@@ -102,17 +103,16 @@ function FormList({ catalog, selectedId, onSelect, query }: FormSidebarProps & {
 }
 
 export function FormSidebar(props: FormSidebarProps): React.ReactElement {
-  const { state } = props.catalog;
+  const { status, items: forms } = props.catalog;
   const [query, setQuery] = React.useState("");
-  const forms = formsOf(state);
   return (
     <SidebarPanel
       title="Formulare"
-      count={state.status === "ready" ? forms.length : undefined}
+      count={status === "ready" ? forms.length : undefined}
       footer={
-        <p className="text-[13px] leading-[1.45] text-muted-foreground">
-          Nur Formulare, die Sie selbst angelegt haben oder bearbeiten dürfen.
-        </p>
+        <SidebarFootnote>
+          <p>Nur Formulare, die Sie selbst angelegt haben oder bearbeiten dürfen.</p>
+        </SidebarFootnote>
       }
     >
       {forms.length > 0 && <SidebarSearch aria-label={SEARCH_LABEL} value={query} onValueChange={setQuery} />}
