@@ -1,6 +1,6 @@
 {
-  "title": "Exibição de Formulários",
-  "summary": "Exibe um formulário de Staffbase existente no CI MAN diretamente em qualquer página.",
+  "title": "Visualização do formulário",
+  "summary": "Exibe um formulário existente do Staffbase diretamente no MAN CI, em qualquer página.",
   "icon": "📝",
   "pages": [
     {
@@ -15,12 +15,12 @@
     },
     {
       "id": "settings",
-      "title": "Configurações",
+      "title": "Definições",
       "file": "settings.md"
     },
     {
       "id": "faq",
-      "title": "FAQ",
+      "title": "Perguntas frequentes",
       "file": "faq.md"
     }
   ]

@@ -1,41 +1,41 @@
-# Visualizzazione delle forme
+# Visualizzazione del modulo
 
-Il visualizzatore del modulo porta un modulo Staffbase esistente su un
-qualsiasi pagina. I lettori possono compilarla e inviarla direttamente lì, 
-senza passare all'area del modulo — ad esempio, nella home page, un
-pagina della squadra o pagina azione. È visualizzata nel MAN CI: angular
-Campi, focus in blu, solo rosso per il pulsante invia, marcatore di campo obbligatorio
-e messaggi di errore. 
+La visualizzazione del modulo inserisce un modulo Staffbase esistente in una
+pagina qualsiasi. I lettori possono compilarlo e inviarlo direttamente da lì,
+senza dover passare all’area dei moduli — ad esempio sulla pagina iniziale, su una
+pagina del team o in una pagina dedicata a un'iniziativa. Viene visualizzato secondo lo stile MAN CI: campi squadrati,
+fokus in blu, rosso solo per il pulsante di invio, indicatori dei campi obbligatori
+e messaggi di errore.
 
-## Cosa fa — e cosa non fa il widget
+## Cosa fa il widget — e cosa non fa
 
-**Visualizza** un modulo già disponibile nell'app Staffbase form
-viene creato. Non **crea** un modulo e **non** modifica le domande. 
-Domande, destinatari e valutazioni rimangono completamente nell'app del modulo; il
-Il widget è solo una seconda posizione di output. 
+**Visualizza** un modulo già creato nell’app Moduli di Staffbase.
+**Non crea** moduli e **non modifica** le domande.
+Domande, destinatari e analisi rimangono interamente nell’app Moduli; il
+widget è solo una seconda sede di visualizzazione.
 
-Questo significa: prima crea il modulo nell'app form e
-, poi inserisci il widget. 
+Ne consegue che: occorre prima creare e
+pubblicare il modulo nell’app Moduli, poi inserire il widget.
 
 ## Cosa vedono i lettori
 
-- Le domande della forma nell'ordine in cui sono state create, 
-  con la marcatura obbligatoria dei campi e i testi informativi. 
-- Il controllo viene effettuato solo durante l'invio; poi il focus passa al primo
-  Manca il campo obbligatorio. Il piede di pagina conta i campi obbligatori aperti. 
-- Una volta inviato, il messaggio di ringraziamento dell'app Forms sostituisce l'intero messaggio
-  forma. 
-- Se hai già risposto e non ti è permesso rispondere di nuovo, vedrai il
-  forma. 
-- È "Consentire agli utenti di visualizzare le proprie inviazioni precedenti" nell'app form 
-  attivato, c'è un pulsante "I tuoi precedenti sottoscrivi"; se non sei più
-  vede direttamente le sue risposte precedenti. 
+- Le domande del modulo nell’ordine in cui sono state create,
+  con l’indicazione dei campi obbligatori e i testi di spiegazione.
+- La verifica avviene solo al momento dell’invio; successivamente il focus si sposta sul primo
+  campo obbligatorio mancante. Il piè di pagina tiene conto dei campi obbligatori non compilati.
+- Dopo l’invio, il messaggio di ringraziamento dell’app per i moduli sostituisce l’intero
+  modulo.
+- Chi ha già risposto e non può rispondere nuovamente, vede al posto del
+  modulo un’apposita nota.
+- Se nell’app per i moduli è attivata l’opzione «Allow users to view their previous submissions»
+  , è presente un pulsante «Your previous submissions»; chi non può più
+  rispondere vede direttamente le proprie risposte precedenti.
 
-## Importante da sapere
+## Informazioni importanti
 
-- Se qualcuno può inviare (di nuovo) è deciso dall'app form — il widget
-  Chiede e la segue. 
-- Le risposte vengono eseguite come di consueto nella valutazione dell'app di modulo. Viene creata
-  Nessuna valutazione separata per pagina. 
-- Le domande appaiono nella lingua che l'app del modulo utilizza per il lettore
-  persona; l'interfaccia utente del widget è in inglese.
+- È l’app del modulo a decidere se un utente può inviare (nuovamente) il modulo: il widget
+  le richiede questa informazione e si attiene alle sue indicazioni.
+- Le risposte vengono incluse come di consueto nell’analisi dell’app per moduli. Non viene
+  generata un’analisi separata per ogni pagina.
+- Le domande appaiono nella lingua che l’app per moduli individua per la persona
+  che le legge; l’interfaccia utente del widget è in inglese.

@@ -1,41 +1,41 @@
-# Prezentacja form
+# Wyświetlanie formularza
 
-Podgląd formularzy przenosi istniejący formularz Staffbase do
-dowolnej stronie. Czytelnicy mogą ją wypełnić i wysłać bezpośrednio tam, 
-Bez przełączania się na obszar formularza — na przykład na stronie głównej,
-strona drużyny lub strona akcji. Jest ona wyświetlana w MAN CI: angular
-Pola, fokus na niebiesko, czerwony tylko na przycisk wysyłania, obowiązkowy znacznik pola
-oraz komunikaty o błędach. 
+Funkcja wyświetlania formularza pozwala umieścić istniejący formularz Staffbase na
+dowolnej stronie. Czytelnicy mogą go wypełnić i wysłać bezpośrednio z tej strony,
+bez konieczności przechodzenia do sekcji formularzy — na przykład na stronie głównej,
+stronie zespołu czy stronie akcji. Wyświetlany jest zgodnie z wytycznymi MAN CI: kwadratowe
+pola, zaznaczenie na niebiesko, kolor czerwony tylko dla przycisku wysyłania, oznaczenia pól obowiązkowych
+i komunikaty o błędach.
 
-## Co robi — a czego nie robi —
+## Co robi ten widget — a czego nie robi
 
-Formularz **wyświetla** jest już dostępny w aplikacji Staffbase
-jest tworzona. Nie tworzy formularza i **nie edytuje pytań. 
-Pytania, odbiorcy i oceny pozostają całkowicie w formie aplikacji;
-Widget to tylko druga lokalizacja wyjściowa. 
+**Wyświetla** formularz, który został już utworzony w aplikacji formularzy Staffbase.
+**Nie tworzy** formularza ani **nie edytuje** pytań.
+Pytania, odbiorcy i analiza pozostają w całości w aplikacji Formularze;
+widżet jest jedynie dodatkowym miejscem wyświetlania.
 
-Oznacza to: Najpierw utwórz formularz w aplikacji formularza i
-, a następnie wstaw widget. 
+Wynika z tego, że najpierw należy utworzyć i
+opublikować formularz w aplikacji Formularze, a dopiero potem wdrożyć widżet.
 
 ## Co widzą czytelnicy
 
-- Pytania o formę w kolejności ich powstania, 
-  z obowiązkowym oznaczaniem terenów i tekstami informacyjnymi. 
-- Sprawdzenie jest wykonywane tylko podczas wysyłania; wtedy fokus przeskakuje do pierwszego
-  Brakuje obowiązkowego pola. Stopka liczy otwarte obowiązkowe pola. 
-- Po przesłaniu wiadomość z podziękowaniem w aplikacji Forms zastępuje całą postać
-  forma. 
-- Jeśli już odpowiedziałeś i nie możesz odpowiedzieć ponownie, zobaczysz
-  forma. 
-- Czy w aplikacji formularzy "Pozwól użytkownikom na przeglądanie ich wcześniejszych zgłoszeń" 
-  aktywowany, pojawia się przycisk "Twoje poprzednie zgłoszenia"; jeśli już nie jesteś
-  widzi jego wcześniejsze odpowiedzi bezpośrednio. 
+- Pytania formularza w kolejności, w jakiej zostały utworzone,
+  z oznaczeniem pól obowiązkowych i tekstami informacyjnymi.
+- Sprawdzanie odbywa się dopiero po wysłaniu; następnie fokus przechodzi na pierwsze
+  brakujące pole obowiązkowe. Stopka zlicza niezapełnione pola obowiązkowe.
+- Po wysłaniu komunikat z podziękowaniem z aplikacji Formular zastępuje cały
+  formularz.
+- Osoby, które już udzieliły odpowiedzi i nie mogą odpowiadać ponownie, widzą zamiast
+  formularza odpowiednią informację.
+- Jeśli w aplikacji Formular włączona jest opcja „Allow users to view their previous submissions”
+  , pojawia się przycisk „Your previous submissions”; osoby, które nie mogą już
+  odpowiadać, widzą bezpośrednio swoje wcześniejsze odpowiedzi.
 
-## Ważne do wiedzy
+## Ważne informacje
 
-- Czy ktoś może ponownie przesłać (ponownie), decyduje aplikacja formularza — widżet
-  pyta i podąża za nim. 
-- Odpowiedzi uruchamiane są normalnie w ocenie formularza aplikacji. Jest tworzona
-  Nie ma osobnej oceny na każdej stronie. 
-- Pytania pojawiają się w języku, którego używa aplikacja formularzowa dla czytelnika
-  osoba; interfejs użytkownika widżetu jest angielski.
+- O tym, czy dana osoba może (ponownie) wysłać formularz, decyduje aplikacja formularzowa — widget
+  zwraca się do niej z zapytaniem i dostosowuje się do jej decyzji.
+- Odpowiedzi są jak zwykle uwzględniane w analizie aplikacji formularzowej. Nie powstaje
+  oddzielna analiza dla każdej strony.
+- Pytania pojawiają się w języku, który aplikacja formularzowa ustala dla osoby
+  czytającej; interfejs użytkownika widżetu jest w języku angielskim.

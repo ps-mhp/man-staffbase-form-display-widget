@@ -1,41 +1,41 @@
 # Form Display
 
-The form viewer brings an existing Staffbase form to a
-any page. Readers can fill it out and send it directly there, 
-without switching to the form area — for example, on the home page, a
-team page or an action page. It is displayed in the MAN CI: angular
-Fields, focus in blue, red only for submit button, mandatory field marker
-and error messages. 
+The Form Display feature places an existing Staffbase form on any
+page. Readers can fill it out and submit it right there,
+without having to navigate to the forms section—for example, on the home page, a
+team page, or a campaign page. It is displayed in the MAN CI: square
+fields, blue focus, red only for the submit button, required field markers,
+and error messages.
 
-## What the widget does — and doesn't
+## What the widget does—and what it doesn’t
 
-It **displays** a form that is already available in the Staffbase form app
-is created. It **doesn't** create a form and **doesn't** edit questions. 
-Questions, recipients and evaluation remain completely in the form app; the
-Widget is only a second output location. 
+It **displays** a form that has already been created in the Staffbase Forms app
+. It **does not create** a form and **does not edit** questions.
+Questions, recipients, and evaluation remain entirely within the Form App; the
+widget is merely a secondary display location.
 
-This means: First create the form in the form app and
-, then insert the widget. 
+Consequently: First create and
+publish the form in the Form App, then implement the widget.
 
-## What readers see
+## What Readers See
 
-- The questions of the form in the order in which they were created, 
-  with mandatory field marking and information texts. 
-- The check is only carried out when sending; then the focus jumps to the first
-  missing mandatory field. The footer counts open mandatory fields. 
-- Once submitted, the Forms app's thank you message replaces the entire
-  form. 
-- If you have already answered and are not allowed to answer again, you will see the
-  form. 
-- Is "Allow users to view their previous submissions" in the form app 
-  activated, there is a button "Your previous submissions"; if you are no longer
-  sees his previous answers directly. 
+- The form’s questions in the order they were created,
+  with required field indicators and tooltips.
+- Validation occurs only upon submission; afterward, the focus jumps to the first
+  missing required field. The footer counts the number of open required fields.
+- After submission, the Form App’s thank-you message replaces the entire
+  form.
+- Users who have already submitted a response and are not allowed to submit again will see a
+  corresponding message instead of the form.
+- If “Allow users to view their previous submissions” is
+  is enabled, there is a “Your previous submissions” button; users who are no longer
+  allowed to respond can view their previous responses directly.
 
-## Important to know
+## Important to Know
 
-- Whether someone is allowed to submit (again) is decided by the form app — the widget
-  she asks and follows it. 
-- Responses run as usual into the evaluation of the form app. It is created
-  no separate evaluation per page. 
-- The questions appear in the language that the form app uses for the reader
-  person; the user interface of the widget is English.
+- The Form App determines whether a user is allowed to submit (again)—the widget
+  queries the Form App and acts accordingly.
+- Responses are included in the form app’s analysis as usual. There is
+  no separate analysis per page.
+- The questions appear in the language that the form app determines for the
+  reader; the widget’s user interface is in English.

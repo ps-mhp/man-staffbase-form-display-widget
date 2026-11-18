@@ -1,6 +1,6 @@
 {
-  "title": "Visualización de formularios",
-  "summary": "Muestra un formulario de Staffbase existente en el CI MAN directamente en cualquier página.",
+  "title": "Visualización del formulario",
+  "summary": "Muestra un formulario existente de Staffbase en la interfaz de usuario de MAN directamente en cualquier página.",
   "icon": "📝",
   "pages": [
     {
@@ -15,7 +15,7 @@
     },
     {
       "id": "settings",
-      "title": "Escenarios",
+      "title": "Configuración",
       "file": "settings.md"
     },
     {

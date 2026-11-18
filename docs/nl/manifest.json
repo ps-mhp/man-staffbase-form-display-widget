@@ -1,6 +1,6 @@
 {
-  "title": "Vormweergave",
-  "summary": "Toont een bestaand Staffbase-formulier in de MAN CI direct op elke pagina.",
+  "title": "Weergave van het formulier",
+  "summary": "Geeft een bestaand Staffbase-formulier direct weer op een willekeurige pagina in de MAN CI.",
   "icon": "📝",
   "pages": [
     {
@@ -20,7 +20,7 @@
     },
     {
       "id": "faq",
-      "title": "FAQ",
+      "title": "Veelgestelde vragen",
       "file": "faq.md"
     }
   ]

@@ -1,6 +1,6 @@
 {
   "title": "Form Display",
-  "summary": "Displays an existing Staffbase form in the MAN CI directly on any page.",
+  "summary": "Displays an existing Staffbase form directly on any page in MAN CI.",
   "icon": "📝",
   "pages": [
     {

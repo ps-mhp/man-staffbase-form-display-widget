@@ -1,15 +1,20 @@
 # Stap voor stap
 
-1. **Maak formulier** — als je dat nog niet hebt gedaan: in de
-   Staffbase Forms-app, maak en publiceer het formulier. 
-2. **Widget invoegen** — selecteer op de landingspagina in de CMS-editor de
-   "FormDisplay". 
-3. **Selecteer formulier** — selecteer in het configuratiemenu het formulier uit de
-   Selecteer de selectielijst. Als deze daar ontbreekt (geen administratieve rechten), dan
-   Formulieradres vanaf de adresbalk naar het veld. 
-4. **Uiterlijk** — accentkleur, dichtheid en
-   Pas de vereiste veldmarkering aan. De standaardinstellingen komen overeen met de
-   MAN CI. 
-5. **Publiceren** — Sla de pagina op en publiceer het. Om de
-   Gebruik de gepubliceerde pagina: Indienen en de Reeds Beantwoorde logica
-   Loop tegen de Real Form-app.
+1. **Formulier aanmaken** — indien nog niet gebeurd: maak in de
+   Staffbase-formulier-app het formulier aan en publiceer het.
+2. **Widget invoegen** — voeg op de doelpagina in de CMS-editor het blok
+   „FormDisplay“ in. Het venster „Formulier selecteren“ wordt automatisch
+   geopend; later kun je het opnieuw openen via de knop „Formulier selecteren“ in
+   het configuratievenster.
+3. **Formulier selecteren** — klik links in de lijst op het formulier; de zoekfunctie
+   erboven helpt bij grote aantallen formulieren. Als het daar ontbreekt (geen
+   beheerdersrechten, ouder dan de 100 laatst gewijzigde), voer dan het
+   formulieradres in onder „ID handmatig invoeren“.
+4. **Ontwerp** — kies indien nodig een accentkleur, dichtheid en een markering voor verplichte velden.
+   De standaardinstellingen komen overeen met de MAN CI. Via Desktop, Tablet en
+   Mobiel in de koptekst kun je het resultaat in de betreffende breedte controleren.
+5. **Toepassen** — klik in de koptekst op „Toepassen“ (⌘/Ctrl S). Dit wordt
+   in het instellingenvenster; het wordt pas opgeslagen met „Opslaan“ in Studio.
+6. **Publiceren** — pagina opslaan en publiceren. Gebruik ter controle de
+   gepubliceerde pagina: verzenden en de „reeds beantwoord“-logica
+   werken tegen de echte formulier-app.
