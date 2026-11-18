@@ -22,11 +22,11 @@
  */
 
 import * as React from "react";
-import { ClipboardList, Search } from "lucide-react";
+import { ClipboardList } from "lucide-react";
 import { Button } from "@man/config-ui/primitives/button";
-import { Input } from "@man/config-ui/primitives/input";
 import { ItemList, type ListItem } from "@man/config-ui/sidebar/item-list";
 import { SidebarPanel } from "@man/config-ui/sidebar/sidebar-panel";
+import { SidebarSearch } from "@man/config-ui/sidebar/sidebar-search";
 import type { EntityOption } from "@shared/entity-picker/entity-catalog";
 
 import { FormCatalog, formsOf } from "./form-catalog-state";
@@ -61,38 +61,6 @@ function itemsOf(forms: readonly EntityOption[]): ListItem[] {
     description: form.title === form.id ? "Ohne Titel" : form.id,
     thumbnail: FORM_KIND,
   }));
-}
-
-interface SearchProps {
-  query: string;
-  onQueryChange: (query: string) => void;
-}
-
-/**
- * Das Suchfeld, beim Scrollen oben stehend. Escape leert es zuerst; erst ein
- * leeres Feld lässt Escape an den Rahmen, der dann schließt.
- */
-function FormSearch({ query, onQueryChange }: SearchProps): React.ReactElement {
-  return (
-    <div className="sticky top-0 z-10 -mx-2 bg-muted px-4 pb-3">
-      <div className="relative">
-        <Search className="pointer-events-none absolute top-3 left-3 size-4 text-muted-foreground" aria-hidden />
-        <Input
-          type="search"
-          aria-label={SEARCH_LABEL}
-          placeholder={SEARCH_LABEL}
-          value={query}
-          onChange={(event) => onQueryChange(event.target.value)}
-          onKeyDown={(event) => {
-            if (event.key !== "Escape" || query === "") return;
-            event.preventDefault();
-            onQueryChange("");
-          }}
-          className="h-10 bg-background pl-[38px]"
-        />
-      </div>
-    </div>
-  );
 }
 
 /** Keine Formulare: entweder gibt es keine mit Verwaltungsrechten, oder die Liste kam nicht an. */
@@ -147,7 +115,7 @@ export function FormSidebar(props: FormSidebarProps): React.ReactElement {
         </p>
       }
     >
-      {forms.length > 0 && <FormSearch query={query} onQueryChange={setQuery} />}
+      {forms.length > 0 && <SidebarSearch aria-label={SEARCH_LABEL} value={query} onValueChange={setQuery} />}
       <FormList {...props} query={query} />
     </SidebarPanel>
   );
