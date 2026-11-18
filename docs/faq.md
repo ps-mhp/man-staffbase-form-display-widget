@@ -15,10 +15,20 @@ Das ist die Einmal-Antworten-Regel des Formulars, nicht des Widgets. Ob
 Mehrfach-Antworten erlaubt sind, wird in den Einstellungen der Formular-App
 festgelegt.
 
-**Warum erscheint mein Formular nicht in der Auswahlliste?**
-Die Liste zeigt nur Formulare mit Verwaltungsrechten und die zuletzt
-geänderten 100. In beiden Fällen hilft das Einfügen der Formular-Adresse in
-das Feld.
+**Warum erscheint mein Formular nicht in der Liste?**
+Die Liste im Fenster „Formular wählen“ zeigt nur Formulare mit
+Verwaltungsrechten und davon die zuletzt geänderten 100. In beiden Fällen
+hilft der Abschnitt „ID von Hand eintragen“: dort die Formular-Adresse oder
+die ID einfügen.
+
+**Bei Dichte oder Akzentfarbe ist keine Option gewählt – ist etwas kaputt?**
+Nein. Der Block stammt aus einer älteren Fassung, und das Fenster konnte die
+alte Einstellung im Content Designer nicht lesen. Bis Sie eine Option wählen,
+gilt die bisherige Einstellung des Blocks unverändert weiter.
+
+**Kann ich in der Vorschau des Fensters etwas absenden?**
+Nein. Die Vorschau zeigt das echte Formular, nimmt aber keine Eingaben an;
+es wird nichts gesendet.
 
 **Werden alle Fragetypen unterstützt?**
 Texteingabe, Absatztext, Datum, Auswahlliste, Einfach- und Mehrfachauswahl
