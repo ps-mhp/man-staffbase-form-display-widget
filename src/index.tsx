@@ -21,11 +21,9 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 
 import { BlockFactory, BlockDefinition, ExternalBlockDefinition, BaseBlock } from "widget-sdk";
-import { ALL_ATTRIBUTES, FORM_ID_ATTRIBUTE, configurationSchema, uiSchema } from "./configuration-schema";
+import { ALL_ATTRIBUTES, configurationSchema, uiSchema } from "./configuration-schema";
+import { startFormDisplayDialog } from "./form-dialog";
 import { resolveFormDisplay } from "./form-display-config";
-import { fetchEntityCatalog } from "@shared/entity-picker/entity-catalog";
-import { startEntityPickerInjector } from "@shared/entity-picker/entity-picker-injector";
-import { formCatalogSource } from "./form-catalog";
 import { startPluginBlockGuard } from "./plugin-block-guard";
 import { FormView } from "./form-view";
 import icon from "../resources/form-display-widget.svg";
@@ -47,33 +45,15 @@ export { readAccentColor, readCompact, readRequiredMarker } from "./form-display
  */
 const widgetAttributes: string[] = ALL_ATTRIBUTES;
 
-/** Copy for the dropdown next to the `form-id` field. */
-const FORM_PICKER_LABELS = {
-  placeholder: "Formular auswählen …",
-  manualOption: "Andere ID eingeben …",
-  unavailableNotice:
-    "Die Liste der Formulare konnte nicht geladen werden. Bitte die Formular-ID eintragen.",
-};
-
 /**
- * Watches for the configuration dialog from module load on.
- *
- * The dialog is opened by the host, not by this widget, and may already be on
- * screen by the time the bundle arrives — so there is no render to hook into.
- * Costs nothing on a published page, where the field never appears.
+ * Watching from module load on: the warning for authors who embed a form
+ * through Staffbase's own plugin-block instead of this widget. The host opens
+ * that dialog, not this widget, and it may already be on screen by the time
+ * the bundle arrives — so there is no render to hook into. Costs nothing on a
+ * published page, where the dialog never appears.
  *
  * Exported only so tests can dispose of the observer on teardown; production
  * code never calls this.
- */
-export const stopFormPickerInjector = startEntityPickerInjector({
-  fieldKey: FORM_ID_ATTRIBUTE,
-  fetchOptions: () => fetchEntityCatalog(formCatalogSource),
-  labels: FORM_PICKER_LABELS,
-});
-
-/**
- * Also watching from module load on: the warning for authors who embed a form
- * through Staffbase's own plugin-block instead of this widget.
  */
 export const stopPluginBlockGuard = startPluginBlockGuard();
 
@@ -139,10 +119,21 @@ const externalBlockDefinition: ExternalBlockDefinition = {
 // is no and this registers immediately; on the developer's machine the local
 // bundle takes over and registers instead. Only ever one of the two, a block
 // name cannot be claimed twice.
+//
+// Das Fenster „Formular wählen“ hängt am Anmelden, nicht am Laden: auf
+// Modulebene gestartet, belegte das installierte Bündel das Feld
+// `form-display-config`, bevor feststeht, ob ein lokaler Entwicklungsserver
+// übernimmt – dann käme die Ansicht von dort, das Fenster aber aus der
+// veröffentlichten Fassung (im Hero-Slider-Widget so beobachtet). Bis
+// 0.1.0-rc.3 stand hier stattdessen eine Auswahlliste am Feld `form-id`; die
+// Liste steht jetzt links im Fenster.
 if (typeof window.defineBlock === "function") {
   void startWidget({
     name: "form-display-widget",
     version: pkg.version,
-    register: () => window.defineBlock(externalBlockDefinition),
+    register: () => {
+      startFormDisplayDialog();
+      window.defineBlock(externalBlockDefinition);
+    },
   });
 }

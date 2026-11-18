@@ -20,7 +20,6 @@ import {
   readAccentColor,
   readCompact,
   readRequiredMarker,
-  stopFormPickerInjector,
   stopPluginBlockGuard,
 } from "./index";
 import { configurationSchema, uiSchema } from "./configuration-schema";
@@ -73,19 +72,10 @@ describe("reading the appearance configuration", () => {
   });
 });
 
-describe("the picker injector", () => {
-  it("is started at module load and can be stopped again", () => {
-    // The dialog may open before or after the bundle loads, so the injector
-    // has to be watching from the start rather than triggered by a render.
-    expect(typeof stopFormPickerInjector).toBe("function");
-    stopFormPickerInjector();
-  });
-});
-
 describe("the plugin-block guard", () => {
   it("is started at module load and can be stopped again", () => {
-    // Same reasoning as the picker: the host's plugin-block dialog may
-    // already be open when this bundle arrives.
+    // The host's plugin-block dialog may already be open when this bundle
+    // arrives, so the guard has to be watching from the start.
     expect(typeof stopPluginBlockGuard).toBe("function");
     stopPluginBlockGuard();
   });
