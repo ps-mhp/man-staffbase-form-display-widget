@@ -24,12 +24,14 @@ import { act, fireEvent, render } from "@testing-library/react";
 import Form from "@rjsf/mui";
 import validator from "@rjsf/validator-ajv8";
 
-import { modalRoot, settleModal } from "@shared/ui/config-modal.testing";
+import { modalRoot, settleModal, settleEditor, clickElement } from "@shared/ui/config-modal.testing";
 import { configurationSchema } from "./configuration-schema";
 import * as client from "./form-client";
 import { formEditorShell, startFormDisplayDialog } from "./form-dialog";
 import { readFormDisplayConfig, resolveFormDisplay, serializeFormDisplayConfig } from "./form-display-config";
 import { STYLE_ELEMENT_ID } from "./styles";
+
+const EDITOR_SELECTOR = '[role="grid"][aria-label="Formulare"] [role="row"]';
 
 const mockEditorLoaded = jest.fn();
 jest.mock("./form-editor", () => {
@@ -91,21 +93,7 @@ const rowNamed = (name: string): HTMLElement | null =>
   ) ?? null;
 
 /** Ein Klick wie von Hilfsmitteln: react-aria nimmt ihn als Druck an. */
-async function click(element: Element | null): Promise<void> {
-  if (element === null) throw new Error("Nichts zum Klicken gefunden");
-  await act(async () => {
-    (element as HTMLElement).click();
-  });
-}
-
-const apply = (): Promise<void> => click(inModal('[data-testid="config-shell-apply"]'));
-
-/** Das Modal lädt nach, der Editor darin noch einmal, dann die Liste: so oft warten, bis alles da ist. */
-async function settleEditor(): Promise<void> {
-  for (let round = 0; round < 8 && inModal('[role="grid"][aria-label="Formulare"] [role="row"]') === null; round += 1) {
-    await settleModal();
-  }
-}
+const apply = (): Promise<void> => clickElement(inModal('[data-testid="config-shell-apply"]'));
 
 /** Der eigene Dialog neben einem fremden mit gleichen Feldnamen. */
 function Dialogs({ own }: { own: React.ReactNode }): React.ReactElement {
@@ -132,7 +120,7 @@ async function openWith(own: React.ReactNode): Promise<{ container: HTMLElement;
   await act(async () => {
     stop = startFormDisplayDialog(container);
   });
-  await settleEditor();
+  await settleEditor(EDITOR_SELECTOR);
   return { container, stop };
 }
 
@@ -205,7 +193,7 @@ describe("startFormDisplayDialog", () => {
   it("schreibt beim ersten Übernehmen den ganzen gelesenen Stand nach form-display-config", async () => {
     const { container, stop } = await open({ "form-id": A, density: "compact", "required-marker": "text" });
 
-    await click(buttonNamed("Anthrazit"));
+    await clickElement(buttonNamed("Anthrazit"));
     await apply();
 
     expect(readFormDisplayConfig(fieldValue(container))).toEqual({
@@ -234,14 +222,14 @@ describe("startFormDisplayDialog", () => {
   it("übernimmt nichts ohne Formular und nennt den Fehler", async () => {
     const { container, stop } = await open({});
 
-    await click(buttonNamed("Kompakt · 36 px"));
+    await clickElement(buttonNamed("Kompakt · 36 px"));
     await apply();
     expect(fieldValue(container)).toBe("");
     // Ein einzelner Fehler steht im Status mit seiner Meldung.
     expect(inModal('[role="status"]')).toHaveTextContent("Formular auswählen");
     expect(inModal('[data-testid="form-heading"] [role="alert"]')).toHaveTextContent("Formular auswählen");
 
-    await click(rowNamed("Bestellung Arbeitskleidung"));
+    await clickElement(rowNamed("Bestellung Arbeitskleidung"));
     await apply();
 
     expect(readFormDisplayConfig(fieldValue(container))).toMatchObject({ formId: B, density: "compact" });
@@ -252,7 +240,7 @@ describe("startFormDisplayDialog", () => {
   it("zeigt in der Vorschau den Entwurf, mit Stylesheet im Fenster statt auf der Wirtsseite", async () => {
     const { stop } = await open({ "form-id": A });
 
-    await click(buttonNamed("Mobil"));
+    await clickElement(buttonNamed("Mobil"));
     await settleModal();
 
     expect(inModal('[data-testid="form-preview"]')).toHaveAttribute("inert");
@@ -336,7 +324,7 @@ describe("unlesbare Auswahlfelder im Content Designer", () => {
   it("schreibt nur, was gelesen oder gewählt wurde; der Block zeigt das Übrige wie bisher", async () => {
     const { container, stop } = await openWith(<ContentDesignerForm />);
 
-    await click(buttonNamed("Kompakt · 36 px"));
+    await clickElement(buttonNamed("Kompakt · 36 px"));
     await apply();
 
     const written = fieldValue(container);
