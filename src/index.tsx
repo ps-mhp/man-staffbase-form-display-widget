@@ -21,8 +21,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 
 import { BlockFactory, BlockDefinition, ExternalBlockDefinition, BaseBlock } from "widget-sdk";
-import { configurationSchema, uiSchema } from "./configuration-schema";
-import { readFormId } from "./form-id";
+import { ALL_ATTRIBUTES, FORM_ID_ATTRIBUTE, configurationSchema, uiSchema } from "./configuration-schema";
+import { resolveFormDisplay } from "./form-display-config";
 import { fetchEntityCatalog } from "@shared/entity-picker/entity-catalog";
 import { startEntityPickerInjector } from "@shared/entity-picker/entity-picker-injector";
 import { formCatalogSource } from "./form-catalog";
@@ -31,46 +31,21 @@ import { FormView } from "./form-view";
 import icon from "../resources/form-display-widget.svg";
 import pkg from "../package.json";
 
-/**
- * The names the configuration goes by.
- *
- * Each has to be spelled the same in three places: the key in the
- * configuration schema, the attribute declared to the host, and the name read
- * back here. They are also the attributes registered for this widget in
- * `widgets.json`.
- */
-export const FORM_ID_ATTRIBUTE = "form-id";
-export const ACCENT_COLOR_ATTRIBUTE = "accent-color";
-export const DENSITY_ATTRIBUTE = "density";
-export const REQUIRED_MARKER_ATTRIBUTE = "required-marker";
-
-/** Attributes handled by the widget; mirrored in the configuration schema. */
-const widgetAttributes: string[] = [
-  FORM_ID_ATTRIBUTE,
+export {
   ACCENT_COLOR_ATTRIBUTE,
   DENSITY_ATTRIBUTE,
+  FORM_DISPLAY_CONFIG_ATTRIBUTE,
+  FORM_ID_ATTRIBUTE,
   REQUIRED_MARKER_ATTRIBUTE,
-];
-
-/** The accents the dialog offers; anything else falls back to MAN red. */
-const ACCENT_COLORS = ["#e40045", "#303c49", "#12171c"];
+} from "./configuration-schema";
+export { readAccentColor, readCompact, readRequiredMarker } from "./form-display-config";
 
 /**
- * Each field carries a default in the schema, but a saved configuration from
- * before the field existed has nothing under the key at all — so the default
- * is applied here as well and not only in the dialog.
+ * Die Attribute des Widgets, aus dem Schema genommen, damit beide nicht
+ * auseinanderlaufen: ein Tippfehler hier zeigte sich sonst erst zur
+ * Laufzeit, als Attribut, das still leer bleibt.
  */
-export function readAccentColor(raw: unknown): string {
-  return typeof raw === "string" && ACCENT_COLORS.includes(raw) ? raw : ACCENT_COLORS[0];
-}
-
-export function readCompact(raw: unknown): boolean {
-  return raw === "compact";
-}
-
-export function readRequiredMarker(raw: unknown): string {
-  return raw === "text" ? " (required)" : " *";
-}
+const widgetAttributes: string[] = ALL_ATTRIBUTES;
 
 /** Copy for the dropdown next to the `form-id` field. */
 const FORM_PICKER_LABELS = {
@@ -107,16 +82,19 @@ const factory: BlockFactory = (BaseBlockClass, _widgetApi) => {
     private _root: ReactDOM.Root | null = null;
 
     public renderBlock(container: HTMLElement): void {
-      const attrs = this.parseAttributes<Record<string, unknown>>();
+      // Je Schlüssel `form-display-config`, sonst das alte Attribut, sonst
+      // die Vorgabe (`form-display-config.ts`). Ein alter Block ohne neues
+      // Attribut zeigt sich damit genau wie bisher.
+      const display = resolveFormDisplay(this.parseAttributes<Record<string, unknown>>());
 
       // The SDK is assumed to pass the same container for the life of the block.
       this._root ??= ReactDOM.createRoot(container);
       this._root.render(
         <FormView
-          formId={readFormId(attrs[FORM_ID_ATTRIBUTE])}
-          accent={readAccentColor(attrs[ACCENT_COLOR_ATTRIBUTE])}
-          compact={readCompact(attrs[DENSITY_ATTRIBUTE])}
-          requiredMarker={readRequiredMarker(attrs[REQUIRED_MARKER_ATTRIBUTE])}
+          formId={display.formId}
+          accent={display.accent}
+          compact={display.compact}
+          requiredMarker={display.requiredMarker}
         />,
       );
     }

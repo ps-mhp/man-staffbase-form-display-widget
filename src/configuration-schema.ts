@@ -14,26 +14,58 @@
 import { UiSchema } from "@rjsf/utils";
 import { JSONSchema7 } from "json-schema";
 
+// Die Namen der Konfiguration.
+//
+// Jeder steht an drei Stellen gleich geschrieben: als Schlüssel im Schema,
+// als Attribut, das dem Host gemeldet wird, und als Name, unter dem die
+// Ansicht liest. Es sind auch die Attribute dieses Widgets in `widgets.json`:
+// der Host speichert einen Wert wörtlich unter seinem Schema-Schlüssel, liest
+// ihn unter dem gemeldeten Attribut zurück und verwirft ein Attribut, das ihm
+// nie genannt wurde.
+
+/** Die ganze Konfiguration in einem Feld – siehe `form-display-config.ts`. */
+export const FORM_DISPLAY_CONFIG_ATTRIBUTE = "form-display-config";
+export const FORM_ID_ATTRIBUTE = "form-id";
+export const ACCENT_COLOR_ATTRIBUTE = "accent-color";
+export const DENSITY_ATTRIBUTE = "density";
+export const REQUIRED_MARKER_ATTRIBUTE = "required-marker";
+
 /**
- * Schema for the widget's configuration dialog.
+ * Die einzelnen Felder bis 0.1.0-rc.3. Sie stehen weiter im Schema, damit der
+ * Dialog ihre Werte führt und alte Blöcke sie behalten: was das Fenster beim
+ * Öffnen lesen kann, übernimmt es als Ausgangsstand; was nicht, gilt weiter
+ * aus dem alten Feld. Zu sehen sind sie im eigenen Dialog nicht mehr
+ * (`legacy-fields.ts`).
+ */
+export const LEGACY_ATTRIBUTES = [
+  FORM_ID_ATTRIBUTE,
+  ACCENT_COLOR_ATTRIBUTE,
+  DENSITY_ATTRIBUTE,
+  REQUIRED_MARKER_ATTRIBUTE,
+] as const;
+
+/**
+ * Schema des Konfigurationsdialogs.
  *
- * The keys are byte-identical to the declared attributes and to the entry in
- * `widgets.json`: the host saves a value under its schema key verbatim and
- * reads it back off the element under the declared attribute name, and it
- * drops an attribute it was never told about.
- *
- * The three appearance fields mirror the tweaks of the Form-Widget design:
- * accent, density and the spelling of the required marker.
+ * Zu sehen ist nur `form-display-config`: an seine Stelle tritt das Fenster
+ * „Formular wählen“, in dem alles gepflegt wird (`form-dialog.tsx`). Die
+ * übrigen Felder sind die der Fassungen bis 0.1.0-rc.3, unverändert – auch
+ * ihre Vorgaben, denn RJSF schreibt sie beim Speichern in jeden Block.
  *
  * @see https://rjsf-team.github.io/react-jsonschema-form/docs/
  */
 export const configurationSchema: JSONSchema7 = {
   properties: {
-    "form-id": {
+    [FORM_DISPLAY_CONFIG_ATTRIBUTE]: {
+      type: "string",
+      title: "Formular-Anzeige",
+      default: "",
+    },
+    [FORM_ID_ATTRIBUTE]: {
       type: "string",
       title: "Formular",
     },
-    "accent-color": {
+    [ACCENT_COLOR_ATTRIBUTE]: {
       type: "string",
       title: "Akzentfarbe",
       default: "#e40045",
@@ -43,7 +75,7 @@ export const configurationSchema: JSONSchema7 = {
         { const: "#12171c", title: "Schwarz" },
       ],
     },
-    density: {
+    [DENSITY_ATTRIBUTE]: {
       type: "string",
       title: "Dichte",
       default: "standard",
@@ -52,7 +84,7 @@ export const configurationSchema: JSONSchema7 = {
         { const: "compact", title: "Kompakt (36 px)" },
       ],
     },
-    "required-marker": {
+    [REQUIRED_MARKER_ATTRIBUTE]: {
       type: "string",
       title: "Pflichtfeld-Markierung",
       default: "asterisk",
@@ -64,22 +96,16 @@ export const configurationSchema: JSONSchema7 = {
   },
 };
 
+/** Alle Attribute, in der Reihenfolge des Schemas: das neue zuerst. */
+export const ALL_ATTRIBUTES: string[] = Object.keys(configurationSchema.properties ?? {});
+
 /**
  * @see https://rjsf-team.github.io/react-jsonschema-form/docs/api-reference/uiSchema
  */
 export const uiSchema: UiSchema = {
-  "form-id": {
+  [FORM_DISPLAY_CONFIG_ATTRIBUTE]: {
     "ui:help":
-      "ID der Formular-Installation — die 24-stellige Zeichenfolge am Ende der Formular-URL. " +
-      "Die vollständige URL kann ebenfalls eingefügt werden.",
-  },
-  "accent-color": {
-    "ui:help": "Farbe für Absenden-Button, Pflichtfeld-Marker und Auswahl-Häkchen.",
-  },
-  density: {
-    "ui:help": "Kompakt reduziert die Feldhöhe von 40 auf 36 px.",
-  },
-  "required-marker": {
-    "ui:help": "Wie Pflichtfelder im Label gekennzeichnet werden.",
+      "Formular und Gestaltung werden im Fenster „Formular wählen“ gepflegt; " +
+      "das Textfeld dahinter ist die Rohfassung.",
   },
 };

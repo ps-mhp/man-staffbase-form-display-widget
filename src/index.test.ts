@@ -14,6 +14,7 @@
 import {
   ACCENT_COLOR_ATTRIBUTE,
   DENSITY_ATTRIBUTE,
+  FORM_DISPLAY_CONFIG_ATTRIBUTE,
   FORM_ID_ATTRIBUTE,
   REQUIRED_MARKER_ATTRIBUTE,
   readAccentColor,
@@ -29,7 +30,10 @@ describe("the widget's attributes", () => {
     // The host saves a value under its schema key verbatim and reads it back
     // under the declared attribute. Any difference puts the value where
     // nothing looks.
+    // Das neue Attribut zuerst, die alten dahinter – so stehen sie auch in
+    // `widgets.json`.
     expect(Object.keys(configurationSchema.properties!)).toEqual([
+      FORM_DISPLAY_CONFIG_ATTRIBUTE,
       FORM_ID_ATTRIBUTE,
       ACCENT_COLOR_ATTRIBUTE,
       DENSITY_ATTRIBUTE,
@@ -37,13 +41,14 @@ describe("the widget's attributes", () => {
     ]);
   });
 
-  it("are the keys the dialog's ui hints are filed under", () => {
-    expect(Object.keys(uiSchema)).toEqual([
-      FORM_ID_ATTRIBUTE,
-      ACCENT_COLOR_ATTRIBUTE,
-      DENSITY_ATTRIBUTE,
-      REQUIRED_MARKER_ATTRIBUTE,
-    ]);
+  // Editoren hängen sich über `root_<Attribut>` ein, ohne das Widget zu
+  // kennen; `config` hat schon das Hotspot-Widget.
+  it("names the one configuration attribute after the widget", () => {
+    expect(FORM_DISPLAY_CONFIG_ATTRIBUTE).toBe("form-display-config");
+  });
+
+  it("explains only the configuration field in the dialog; the old fields are hidden", () => {
+    expect(Object.keys(uiSchema)).toEqual([FORM_DISPLAY_CONFIG_ATTRIBUTE]);
   });
 });
 
